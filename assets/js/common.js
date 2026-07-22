@@ -1,6 +1,73 @@
 import { ensureAnonymousAuth } from "./firebase.js";
 import { watchPublicConfig, DEFAULT_CONFIG } from "./config-service.js";
 
+
+function resolveResponsiveDevice() {
+  const viewportValues = [
+    window.innerWidth,
+    document.documentElement.clientWidth,
+    window.visualViewport?.width
+  ].filter(value => Number.isFinite(value) && value > 0);
+
+  const viewportWidth = viewportValues.length
+    ? Math.min(...viewportValues)
+    : 1280;
+
+  const screenShortSide = Math.min(
+    Number(window.screen?.width || viewportWidth),
+    Number(window.screen?.height || viewportWidth)
+  );
+
+  const touchDevice =
+    navigator.maxTouchPoints > 0 ||
+    window.matchMedia("(pointer: coarse)").matches;
+
+  let device = "desktop";
+
+  if (
+    viewportWidth <= 700 ||
+    screenShortSide <= 600
+  ) {
+    device = "mobile";
+  } else if (
+    viewportWidth <= 1100 ||
+    screenShortSide <= 1100 ||
+    (touchDevice && viewportWidth <= 1366)
+  ) {
+    device = "tablet";
+  }
+
+  document.documentElement.dataset.device = device;
+
+  if (document.body) {
+    document.body.classList.remove(
+      "device-mobile",
+      "device-tablet",
+      "device-desktop"
+    );
+    document.body.classList.add(`device-${device}`);
+  }
+
+  return device;
+}
+
+let responsiveFrame;
+
+function scheduleResponsiveDeviceUpdate() {
+  window.cancelAnimationFrame(responsiveFrame);
+  responsiveFrame = window.requestAnimationFrame(() => {
+    const device = resolveResponsiveDevice();
+
+    if (device === "desktop") {
+      const nav = document.querySelector("[data-site-nav]");
+      const button = document.querySelector("[data-menu-toggle]");
+
+      nav?.classList.remove("open");
+      button?.setAttribute("aria-expanded", "false");
+    }
+  });
+}
+
 let currentConfig = DEFAULT_CONFIG;
 let countdownTimer;
 
@@ -45,10 +112,42 @@ function startCountdown(date) {
 function setupMenu() {
   const button = document.querySelector("[data-menu-toggle]");
   const nav = document.querySelector("[data-site-nav]");
+
   if (!button || !nav) return;
-  button.addEventListener("click", () => {
+
+  const closeMenu = () => {
+    nav.classList.remove("open");
+    button.setAttribute("aria-expanded", "false");
+    button.setAttribute("aria-label", "Abrir menu");
+  };
+
+  button.addEventListener("click", event => {
+    event.stopPropagation();
+
     const open = nav.classList.toggle("open");
     button.setAttribute("aria-expanded", String(open));
+    button.setAttribute(
+      "aria-label",
+      open ? "Fechar menu" : "Abrir menu"
+    );
+  });
+
+  nav.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", closeMenu);
+  });
+
+  document.addEventListener("click", event => {
+    if (
+      nav.classList.contains("open") &&
+      !nav.contains(event.target) &&
+      !button.contains(event.target)
+    ) {
+      closeMenu();
+    }
+  });
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") closeMenu();
   });
 }
 function showConnectionError(error) {
@@ -61,7 +160,19 @@ function showConnectionError(error) {
   area.classList.remove("hidden");
   console.error(error);
 }
+resolveResponsiveDevice();
 setupMenu();
+
+window.addEventListener("resize", scheduleResponsiveDeviceUpdate);
+window.addEventListener("orientationchange", scheduleResponsiveDeviceUpdate);
+window.visualViewport?.addEventListener(
+  "resize",
+  scheduleResponsiveDeviceUpdate
+);
+window.screen?.orientation?.addEventListener?.(
+  "change",
+  scheduleResponsiveDeviceUpdate
+);
 ensureAnonymousAuth()
   .then(() => watchPublicConfig(applyConfig, showConnectionError))
   .catch(showConnectionError);

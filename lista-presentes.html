@@ -1,21 +1,456 @@
 <!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Lista de presentes — Mislaine & Emerson</title><link rel="icon" href="assets/img/monograma.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/css/styles.css">
-<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js" defer></script></head>
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head><script id="early-device-detection">
+(function () {
+  var viewport = Math.min(
+    window.innerWidth || 9999,
+    document.documentElement.clientWidth || 9999,
+    window.visualViewport ? window.visualViewport.width : 9999
+  );
+
+  var shortSide = Math.min(
+    window.screen && window.screen.width
+      ? window.screen.width
+      : viewport,
+    window.screen && window.screen.height
+      ? window.screen.height
+      : viewport
+  );
+
+  var touch =
+    (navigator.maxTouchPoints || 0) > 0 ||
+    (window.matchMedia &&
+      window.matchMedia("(pointer: coarse)").matches);
+
+  var device = "desktop";
+
+  if (viewport <= 700 || shortSide <= 600) {
+    device = "mobile";
+  } else if (
+    viewport <= 1100 ||
+    shortSide <= 1100 ||
+    (touch && viewport <= 1366)
+  ) {
+    device = "tablet";
+  }
+
+  document.documentElement.dataset.device = device;
+})();
+</script><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" name="viewport"/><title>Lista de presentes — Mislaine &amp; Emerson</title><link href="assets/img/monograma.svg" rel="icon" type="image/svg+xml"/><link href="assets/css/styles.css?v=2.5.0" rel="stylesheet"/>
+<script defer="" src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script><style id="critical-dialog-styles">
+dialog.site-dialog {
+  position: fixed;
+  inset: 0;
+  width: min(680px, calc(100vw - 32px));
+  max-width: 680px;
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  border-radius: 24px;
+  background: transparent;
+  color: inherit;
+}
+
+dialog.site-dialog.site-dialog-large {
+  width: min(920px, calc(100vw - 32px));
+  max-width: 920px;
+}
+
+dialog.site-dialog[open] {
+  display: block;
+}
+
+dialog.site-dialog::backdrop {
+  background: rgba(52, 33, 22, 0.74);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+dialog.site-dialog > .modal-card {
+  position: relative;
+  width: 100%;
+  max-height: calc(100dvh - 32px);
+  margin: 0;
+  padding: 26px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border: 1px solid rgba(98, 51, 6, 0.16);
+  border-radius: 24px;
+  background: #FFFDF9;
+  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.42);
+}
+
+dialog.site-dialog .modal-header {
+  position: sticky;
+  top: -26px;
+  z-index: 5;
+  margin: -26px -26px 18px;
+  padding: 24px 26px 16px;
+  background: #FFFDF9;
+  border-bottom: 1px solid rgba(98, 51, 6, 0.10);
+}
+
+dialog.site-dialog .modal-close {
+  flex: 0 0 auto;
+  display: inline-grid;
+  place-items: center;
+}
+
+body.modal-open {
+  overflow: hidden !important;
+}
+
+@media (max-width: 720px) {
+  dialog.site-dialog,
+  dialog.site-dialog.site-dialog-large {
+    inset: auto 0 0;
+    width: 100%;
+    max-width: none;
+    max-height: calc(100dvh - 10px);
+    margin: auto 0 0;
+    border-radius: 24px 24px 0 0;
+  }
+
+  dialog.site-dialog > .modal-card {
+    max-height: calc(100dvh - 10px);
+    border-radius: 24px 24px 0 0;
+  }
+}
+
+
+dialog.site-dialog .reservation-item {
+  padding: 18px;
+  margin-bottom: 14px;
+  border: 1px solid rgba(98, 51, 6, 0.16);
+  border-radius: 18px;
+  background: #FFFDF9;
+}
+
+dialog.site-dialog .reservation-item h3 {
+  margin: 0 0 10px;
+  color: #342116;
+  font-size: 1.25rem;
+}
+
+dialog.site-dialog .reservation-item p {
+  margin: 5px 0;
+}
+
+dialog.site-dialog .reservation-list {
+  display: grid;
+  gap: 14px;
+}
+
+dialog.site-dialog .notice.info {
+  border-color: rgba(98, 51, 6, 0.28);
+  background: rgba(216, 193, 163, 0.25);
+}
+</style><style id="dialog-layout-2-4-1">
+/* =========================================================
+   CORREÇÃO 2.4.1 — ALINHAMENTO DOS POP-UPS
+   ========================================================= */
+
+dialog.site-dialog > .modal-card {
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+dialog.site-dialog .modal-header {
+  position: relative !important;
+  top: auto !important;
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  gap: 20px !important;
+  min-height: 116px;
+  margin: 0 !important;
+  padding: 26px 78px 22px 28px !important;
+  background: #FFFDF9 !important;
+  border-bottom: 1px solid rgba(98, 51, 6, 0.12) !important;
+}
+
+dialog.site-dialog .modal-header > div {
+  min-width: 0;
+}
+
+dialog.site-dialog .modal-header .eyebrow {
+  margin: 0 0 10px !important;
+}
+
+dialog.site-dialog .modal-header h2 {
+  max-width: 100%;
+  margin: 0 !important;
+  overflow-wrap: anywhere;
+  color: #342116;
+  font-size: clamp(1.7rem, 4vw, 2.2rem) !important;
+  line-height: 1.12 !important;
+}
+
+dialog.site-dialog .modal-close {
+  position: absolute !important;
+  top: 22px !important;
+  right: 24px !important;
+  z-index: 10 !important;
+  width: 42px !important;
+  height: 42px !important;
+  min-width: 42px !important;
+  min-height: 42px !important;
+  display: inline-grid !important;
+  place-items: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 1px solid rgba(98, 51, 6, 0.22) !important;
+  border-radius: 12px !important;
+  color: #342116 !important;
+  background: #FFFDF9 !important;
+  font-size: 1.15rem !important;
+  line-height: 1 !important;
+  cursor: pointer;
+  transition:
+    color .18s ease,
+    border-color .18s ease,
+    background .18s ease,
+    transform .18s ease;
+}
+
+dialog.site-dialog .modal-close:hover {
+  color: #FFFDF9 !important;
+  border-color: #623306 !important;
+  background: #623306 !important;
+  transform: scale(1.04);
+}
+
+dialog.site-dialog .modal-close:focus-visible {
+  outline: 3px solid rgba(164, 95, 61, 0.28);
+  outline-offset: 3px;
+}
+
+dialog.site-dialog form,
+dialog.site-dialog #myReservationsMessage,
+dialog.site-dialog #myReservationsList {
+  margin: 0;
+}
+
+dialog.site-dialog form {
+  padding: 26px 28px 28px;
+}
+
+dialog.site-dialog .form-grid {
+  align-items: start !important;
+  gap: 20px 18px !important;
+}
+
+dialog.site-dialog .field {
+  align-content: start;
+  gap: 8px !important;
+  min-width: 0;
+}
+
+dialog.site-dialog .field label {
+  min-height: 24px;
+  margin: 0;
+  line-height: 1.35;
+}
+
+dialog.site-dialog .field input,
+dialog.site-dialog .field select,
+dialog.site-dialog .field textarea {
+  width: 100%;
+  min-height: 52px !important;
+  margin: 0 !important;
+  padding: 12px 16px !important;
+  border-radius: 15px !important;
+}
+
+dialog.site-dialog .field textarea {
+  min-height: 112px !important;
+}
+
+dialog.site-dialog .field small {
+  display: block;
+  min-height: 20px;
+  margin: 0;
+  color: #71655c;
+  line-height: 1.45;
+}
+
+dialog.site-dialog .field.full {
+  grid-column: 1 / -1;
+}
+
+dialog.site-dialog .notice.field.full {
+  min-height: auto;
+}
+
+dialog.site-dialog form > .notice {
+  margin-inline: 28px;
+}
+
+dialog.site-dialog form > .actions,
+dialog.site-dialog #pixGenerated .actions {
+  justify-content: flex-end !important;
+  gap: 12px !important;
+  margin-top: 24px !important;
+}
+
+dialog.site-dialog .actions .btn {
+  min-width: 190px;
+}
+
+dialog.site-dialog #myReservationsMessage,
+dialog.site-dialog #myReservationsList {
+  margin-inline: 28px !important;
+}
+
+dialog.site-dialog #myReservationsList {
+  padding-bottom: 28px;
+}
+
+@media (max-width: 720px) {
+  dialog.site-dialog .modal-header {
+    min-height: 104px;
+    padding: 22px 68px 18px 20px !important;
+  }
+
+  dialog.site-dialog .modal-close {
+    top: 17px !important;
+    right: 17px !important;
+    width: 40px !important;
+    height: 40px !important;
+    min-width: 40px !important;
+    min-height: 40px !important;
+  }
+
+  dialog.site-dialog form {
+    padding: 22px 20px 24px;
+  }
+
+  dialog.site-dialog .form-grid {
+    grid-template-columns: 1fr !important;
+    gap: 17px !important;
+  }
+
+  dialog.site-dialog .field label {
+    min-height: auto;
+  }
+
+  dialog.site-dialog .field small {
+    min-height: auto;
+  }
+
+  dialog.site-dialog form > .notice,
+  dialog.site-dialog #myReservationsMessage,
+  dialog.site-dialog #myReservationsList {
+    margin-inline: 20px !important;
+  }
+
+  dialog.site-dialog form > .actions,
+  dialog.site-dialog #pixGenerated .actions {
+    flex-direction: column;
+  }
+
+  dialog.site-dialog .actions .btn {
+    width: 100%;
+    min-width: 0;
+  }
+}
+</style><style id="dialog-scroll-2-4-2">
+/* =========================================================
+   CORREÇÃO 2.4.2 — ROLAGEM EM TODOS OS POP-UPS
+   ========================================================= */
+
+dialog.site-dialog {
+  overflow: hidden !important;
+}
+
+dialog.site-dialog > .modal-card {
+  width: 100% !important;
+  max-height: calc(100dvh - 32px) !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Cabeçalho e botão de fechar permanecem visíveis durante a rolagem. */
+dialog.site-dialog .modal-header {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 20 !important;
+  background: #FFFDF9 !important;
+}
+
+/* Barra de rolagem discreta em navegadores Chromium. */
+dialog.site-dialog > .modal-card::-webkit-scrollbar {
+  width: 10px;
+}
+
+dialog.site-dialog > .modal-card::-webkit-scrollbar-track {
+  background: rgba(216, 193, 163, 0.18);
+  border-radius: 999px;
+}
+
+dialog.site-dialog > .modal-card::-webkit-scrollbar-thumb {
+  background: rgba(98, 51, 6, 0.42);
+  border: 2px solid #FFFDF9;
+  border-radius: 999px;
+}
+
+dialog.site-dialog > .modal-card::-webkit-scrollbar-thumb:hover {
+  background: rgba(98, 51, 6, 0.68);
+}
+
+@media (max-width: 720px) {
+  dialog.site-dialog > .modal-card {
+    max-height: calc(100dvh - 10px) !important;
+  }
+}
+</style><link href="assets/css/responsive.css?v=2.5.0" rel="stylesheet"/></head>
 <body data-page="gifts">
-<header class="site-header"><div class="header-inner"><a class="brand" href="index.html"><img src="assets/img/monograma.svg" alt=""><span data-site-name>Mislaine & Emerson</span></a><button class="menu-toggle" type="button" data-menu-toggle aria-label="Abrir menu" aria-expanded="false">☰</button><nav class="site-nav" data-site-nav><a href="index.html">Início</a><a href="confirmar-presenca.html">Confirmar presença</a><a href="lista-presentes.html" aria-current="page">Lista de presentes</a></nav></div></header>
+<header class="site-header"><div class="header-inner"><a class="brand" href="index.html"><img alt="" src="assets/img/monograma.svg"/><span data-site-name="">Mislaine &amp; Emerson</span></a><button aria-expanded="false" aria-label="Abrir menu" class="menu-toggle" data-menu-toggle="" type="button">☰</button><nav class="site-nav" data-site-nav=""><a href="index.html">Início</a><a href="confirmar-presenca.html">Confirmar presença</a><a aria-current="page" href="lista-presentes.html">Lista de presentes</a></nav></div></header>
 <main><section class="page-hero"><div class="container"><p class="eyebrow">Escolha com carinho</p><h1>Lista de presentes</h1><p>Reserve um presente por 24 horas para comprar na loja ou contribua por PIX. Os pagamentos PIX são confirmados manualmente pelos administradores.</p></div></section>
-<section class="section"><div class="container"><div data-global-message class="hidden"></div>
-<div class="toolbar"><input id="giftSearch" type="search" placeholder="Pesquisar presente..."><select id="categoryFilter"><option value="">Todas as categorias</option></select><select id="priceFilter"><option value="">Todos os valores</option><option value="0-100">Até R$ 100</option><option value="100-300">R$ 100 a R$ 300</option><option value="300-500">R$ 300 a R$ 500</option><option value="500+">Acima de R$ 500</option></select></div>
-<div class="toolbar-extra"><button id="myReservationsButton" class="btn btn-secondary" type="button">Minhas reservas</button></div><div id="giftGrid" class="gift-grid"><div class="loading">Carregando presentes...</div></div>
-</div></section></main><footer class="site-footer"><div class="container">Com carinho, <span data-site-name>Mislaine & Emerson</span>.</div></footer>
-
-<div id="reservationModal" class="modal hidden"><div class="modal-card"><div class="modal-header"><div><p class="eyebrow">Reservar presente</p><h2 id="reservationTitle">Presente</h2></div><button class="modal-close" type="button" data-close-modal>✕</button></div>
-<form id="reservationForm"><input id="reservationGiftId" type="hidden"><div class="form-grid"><div class="field"><label for="reservationName">Nome completo</label><input id="reservationName" required maxlength="120"></div><div class="field"><label for="reservationWhatsapp">WhatsApp</label><input id="reservationWhatsapp" inputmode="tel" placeholder="(69) 99999-9999" required maxlength="16"></div><div class="field full"><label for="deliveryChoice">Forma de entrega</label><select id="deliveryChoice"><option value="casal">Entregar diretamente no endereço do casal</option><option value="convidado">Receber no meu endereço e entregar pessoalmente</option></select></div><div id="deliveryAddressBox" class="field full notice"><strong>Endereço de entrega</strong><span id="deliveryAddressText">Carregando endereço...</span></div></div><div id="reservationMessage" class="notice hidden" style="margin-top:18px"></div><div class="actions"><button class="btn btn-primary" type="submit">Reservar por 24 horas</button></div></form></div></div>
-
-<div id="pixModal" class="modal hidden"><div class="modal-card large"><div class="modal-header"><div><p class="eyebrow">Presentear por PIX</p><h2 id="pixTitle">Presente</h2></div><button class="modal-close" type="button" data-close-modal>✕</button></div>
-<form id="pixForm"><input id="pixGiftId" type="hidden"><div class="form-grid"><div class="field"><label for="pixName">Nome completo</label><input id="pixName" required maxlength="120"></div><div class="field"><label for="pixWhatsapp">WhatsApp</label><input id="pixWhatsapp" inputmode="tel" placeholder="(69) 99999-9999" required maxlength="16"></div><div class="field full"><label for="pixValue">Valor</label><input id="pixValue" type="number" min=".01" step=".01" required><small>O valor pode ser maior que o valor restante do produto.</small></div></div><div class="actions"><button id="generatePixButton" class="btn btn-primary" type="button">Gerar PIX</button></div>
-<div id="pixGenerated" class="hidden"><div class="pix-box"><canvas id="pixQrCanvas"></canvas><div><p><strong id="pixBeneficiary"></strong></p><div class="field"><label for="pixPayload">PIX Copia e Cola</label><textarea id="pixPayload" readonly></textarea></div><div class="actions"><button id="copyPixButton" class="btn btn-secondary" type="button">Copiar código</button><button class="btn btn-primary" type="submit">Já fiz o PIX</button></div></div></div></div><div id="pixMessage" class="notice hidden" style="margin-top:18px"></div></form></div></div>
-
-<div id="myReservationsModal" class="modal hidden"><div class="modal-card large"><div class="modal-header"><div><p class="eyebrow">Acompanhe suas escolhas</p><h2>Minhas reservas</h2></div><button class="modal-close" type="button" data-close-modal>✕</button></div><div id="myReservationsList"><div class="loading">Carregando...</div></div></div></div>
-<script type="module" src="assets/js/common.js"></script><script type="module" src="assets/js/presentes.js"></script>
+<section class="section"><div class="container"><div class="hidden" data-global-message=""></div>
+<div class="toolbar"><input id="giftSearch" placeholder="Pesquisar presente..." type="search"/><select id="categoryFilter"><option value="">Todas as categorias</option></select><select id="priceFilter"><option value="">Todos os valores</option><option value="0-100">Até R$ 100</option><option value="100-300">R$ 100 a R$ 300</option><option value="300-500">R$ 300 a R$ 500</option><option value="500+">Acima de R$ 500</option></select></div>
+<div class="toolbar-extra"><button class="btn btn-secondary" id="myReservationsButton" type="button">Consultar minhas reservas</button></div><div class="gift-grid" id="giftGrid"><div class="loading">Carregando presentes...</div></div>
+</div></section></main><footer class="site-footer"><div class="container">Com carinho, <span data-site-name="">Mislaine &amp; Emerson</span>.</div></footer>
+<dialog aria-labelledby="reservationTitle" class="site-dialog" id="reservationModal"><div class="modal-card"><div class="modal-header"><div><p class="eyebrow">Reservar presente</p><h2 id="reservationTitle">Presente</h2></div><button aria-label="Fechar janela" class="modal-close" data-close-modal="" title="Fechar" type="button">✕</button></div>
+<form id="reservationForm"><input id="reservationGiftId" type="hidden"/><div class="form-grid"><div class="field"><label for="reservationName">Nome e sobrenome</label><input autocomplete="name" id="reservationName" maxlength="120" minlength="5" placeholder="Ex.: João da Silva" required=""/><small>Informe obrigatoriamente nome e sobrenome.</small></div><div class="field"><label for="reservationWhatsapp">WhatsApp</label><input autocomplete="tel" id="reservationWhatsapp" inputmode="numeric" maxlength="15" pattern="\([1-9]\d\) 9\d{4}-\d{4}" placeholder="(69) 99999-9999" required="" title="Informe no formato (69) 99999-9999" type="tel"/></div><div class="field full notice hidden" id="reservationProfileNotice"></div><div class="field full"><label for="deliveryChoice">Forma de entrega</label><select id="deliveryChoice"><option value="casal">Entregar diretamente no endereço do casal</option><option value="convidado">Receber no meu endereço e entregar pessoalmente</option></select></div><div class="field full notice" id="deliveryAddressBox"><strong>Endereço de entrega</strong><span id="deliveryAddressText">Carregando endereço...</span></div></div><div class="notice hidden" id="reservationMessage" style="margin-top:18px"></div><div class="actions"><button class="btn btn-primary" id="reservationSubmitButton" type="submit">Reservar por 24 horas</button></div></form></div></dialog>
+<dialog aria-labelledby="pixTitle" class="site-dialog site-dialog-large" id="pixModal"><div class="modal-card large"><div class="modal-header"><div><p class="eyebrow">Presentear por PIX</p><h2 id="pixTitle">Presente</h2></div><button aria-label="Fechar janela" class="modal-close" data-close-modal="" title="Fechar" type="button">✕</button></div>
+<form id="pixForm"><input id="pixGiftId" type="hidden"/><div class="form-grid"><div class="field"><label for="pixName">Nome e sobrenome</label><input autocomplete="name" id="pixName" maxlength="120" minlength="5" placeholder="Ex.: João da Silva" required=""/></div><div class="field"><label for="pixWhatsapp">WhatsApp</label><input autocomplete="tel" id="pixWhatsapp" inputmode="numeric" maxlength="15" pattern="\([1-9]\d\) 9\d{4}-\d{4}" placeholder="(69) 99999-9999" required="" title="Informe no formato (69) 99999-9999" type="tel"/></div><div class="field full"><label for="pixValue">Valor</label><input id="pixValue" min=".01" required="" step=".01" type="number"/><small>O valor pode ser maior que o valor restante do produto.</small></div></div><div class="actions"><button class="btn btn-primary" id="generatePixButton" type="button">Gerar PIX</button></div>
+<div class="hidden" id="pixGenerated"><div class="pix-box"><canvas id="pixQrCanvas"></canvas><div><p><strong id="pixBeneficiary"></strong></p><div class="field"><label for="pixPayload">PIX Copia e Cola</label><textarea id="pixPayload" readonly=""></textarea></div><div class="actions"><button class="btn btn-secondary" id="copyPixButton" type="button">Copiar código</button><button class="btn btn-primary" type="submit">Já fiz o PIX</button></div></div></div></div><div class="notice hidden" id="pixMessage" style="margin-top:18px"></div></form></div></dialog>
+<dialog class="site-dialog site-dialog-large" id="myReservationsModal"><div class="modal-card large"><div class="modal-header"><div><p class="eyebrow">Acompanhe suas escolhas</p><h2>Minhas reservas</h2></div><button aria-label="Fechar janela" class="modal-close" data-close-modal="" title="Fechar" type="button">✕</button></div>
+<form id="myReservationsLookupForm">
+<div class="form-grid">
+<div class="field">
+<label for="myReservationsName">Nome e sobrenome</label>
+<input autocomplete="name" id="myReservationsName" maxlength="120" minlength="5" placeholder="Ex.: João da Silva" required="" type="text"/>
+<small>Digite o mesmo nome usado na reserva. Acentos e letras maiúsculas não fazem diferença.</small>
+</div>
+<div class="field">
+<label for="myReservationsWhatsapp">WhatsApp</label>
+<input autocomplete="tel" id="myReservationsWhatsapp" inputmode="numeric" maxlength="15" pattern="\([1-9]\d\) 9\d{4}-\d{4}" placeholder="(69) 99999-9999" required="" title="Informe no formato (69) 99999-9999" type="tel"/>
+</div>
+</div>
+<div class="actions">
+<button class="btn btn-primary" id="searchMyReservationsButton" type="submit">
+      Consultar reservas
+    </button>
+</div>
+</form>
+<div class="notice hidden" id="myReservationsMessage" style="margin-top:18px"></div>
+<div class="hidden" id="myReservationsList" style="margin-top:18px"></div>
+</div></dialog>
+<script src="assets/js/common.js?v=2.5.0" type="module"></script><script src="assets/js/presentes.js?v=2.5.0" type="module"></script>
 </body></html>
