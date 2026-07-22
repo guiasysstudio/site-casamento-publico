@@ -77,6 +77,15 @@ function formatDate(date) {
 function formatTime(date) {
   return new Intl.DateTimeFormat("pt-BR", { hour:"2-digit", minute:"2-digit" }).format(date);
 }
+
+function formatShortDate(date) {
+  return new Intl.DateTimeFormat("pt-BR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric"
+  }).format(date);
+}
+
 function applyConfig(config) {
   currentConfig = config;
   document.title = document.body.dataset.page === "home" ? config.pageTitle : document.title.replace(/Mislaine & Emerson/g, config.siteName);
@@ -85,6 +94,7 @@ function applyConfig(config) {
   document.querySelectorAll("[data-venue-name]").forEach(el => el.textContent = config.venueName);
   document.querySelectorAll("[data-venue-address]").forEach(el => el.textContent = config.venueAddress);
   document.querySelectorAll("[data-wedding-date]").forEach(el => el.textContent = formatDate(config.weddingDate));
+  document.querySelectorAll("[data-wedding-date-short]").forEach(el => el.textContent = formatShortDate(config.weddingDate));
   document.querySelectorAll("[data-wedding-time]").forEach(el => el.textContent = formatTime(config.weddingDate));
   document.querySelectorAll("[data-maps-link]").forEach(el => el.href = config.mapsUrl || "#");
   startCountdown(config.weddingDate);
