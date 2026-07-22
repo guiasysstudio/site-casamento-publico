@@ -88,7 +88,7 @@ button {
 }
 
 /* Menu recolhível para tablets, celulares e dispositivos de toque. */
-@media (max-width: 1100px), (hover: none) and (pointer: coarse) {
+@media (max-width: 1100px) {
   .header-inner {
     min-height: 70px;
     gap: 12px;
@@ -782,5 +782,60 @@ html[data-device="mobile"] dialog.site-dialog.site-dialog-large {
 
   .countdown-item span {
     font-size: .45rem !important;
+  }
+}
+
+
+/* =========================================================
+   CORREÇÃO 2.5.3 — MENU HORIZONTAL NO COMPUTADOR
+   ========================================================= */
+
+@media (min-width: 1101px) {
+  .menu-toggle {
+    display: none !important;
+  }
+
+  .site-nav,
+  html[data-device="mobile"] .site-nav,
+  html[data-device="tablet"] .site-nav {
+    position: static !important;
+    inset: auto !important;
+    z-index: auto !important;
+    width: auto !important;
+    max-width: none !important;
+    max-height: none !important;
+    display: flex !important;
+    grid-template-columns: none !important;
+    align-items: center !important;
+    gap: 6px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+  .site-nav a,
+  html[data-device="mobile"] .site-nav a,
+  html[data-device="tablet"] .site-nav a {
+    width: auto !important;
+    min-height: auto !important;
+    display: inline-flex !important;
+    padding: 10px 14px !important;
+    text-align: center !important;
+  }
+
+  .public-menu-backdrop {
+    display: none !important;
+  }
+
+  body.public-menu-open {
+    overflow: auto !important;
   }
 }

@@ -68,12 +68,18 @@
     });
 
     window.addEventListener("resize", () => {
-      if (window.innerWidth > 1100) closeMenu();
+      if (window.innerWidth > 1100) {
+        closeMenu();
+        nav.removeAttribute("style");
+      }
     });
 
     window.addEventListener("orientationchange", closeMenu);
     window.visualViewport?.addEventListener("resize", () => {
-      if (window.innerWidth > 1100) closeMenu();
+      if (window.innerWidth > 1100) {
+        closeMenu();
+        nav.removeAttribute("style");
+      }
     });
   }
 

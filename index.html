@@ -5,6 +5,8 @@
 
 <!DOCTYPE html>
 
+<!DOCTYPE html>
+
 <html lang="pt-BR">
 <head><script id="early-device-detection">
 (function () {
@@ -14,29 +16,11 @@
     window.visualViewport ? window.visualViewport.width : 9999
   );
 
-  var shortSide = Math.min(
-    window.screen && window.screen.width
-      ? window.screen.width
-      : viewport,
-    window.screen && window.screen.height
-      ? window.screen.height
-      : viewport
-  );
-
-  var touch =
-    (navigator.maxTouchPoints || 0) > 0 ||
-    (window.matchMedia &&
-      window.matchMedia("(pointer: coarse)").matches);
-
   var device = "desktop";
 
-  if (viewport <= 700 || shortSide <= 600) {
+  if (viewport <= 700) {
     device = "mobile";
-  } else if (
-    viewport <= 1100 ||
-    shortSide <= 1100 ||
-    (touch && viewport <= 1366)
-  ) {
+  } else if (viewport <= 1100) {
     device = "tablet";
   }
 
@@ -48,7 +32,7 @@
 <title>Casamento de Mislaine &amp; Emerson</title>
 <link href="assets/img/monograma.svg" rel="icon" type="image/svg+xml"/>
 <link href="assets/css/styles.css?v=2.5.1" rel="stylesheet"/>
-<link href="assets/css/responsive.css?v=2.5.2" rel="stylesheet"/><link href="assets/css/public-menu-fix.css?v=2.5.2" rel="stylesheet"/><script defer="" src="assets/js/public-menu.js?v=2.5.2"></script></head>
+<link href="assets/css/responsive.css?v=2.5.3" rel="stylesheet"/><link href="assets/css/public-menu-fix.css?v=2.5.3" rel="stylesheet"/><script defer="" src="assets/js/public-menu.js?v=2.5.3"></script></head>
 <body data-page="home">
 <header class="site-header"><div class="header-inner">
 <a class="brand" href="index.html"><img alt="" src="assets/img/monograma.svg"/><span data-site-name="">Mislaine &amp; Emerson</span></a>
@@ -66,5 +50,5 @@
 </div>
 </div></main>
 <footer class="site-footer"><div class="container"><strong data-site-name="">Mislaine &amp; Emerson</strong><br/><span data-venue-address=""></span></div></footer>
-<script src="assets/js/common.js?v=2.5.2" type="module"></script>
+<script src="assets/js/common.js?v=2.5.3" type="module"></script>
 </body></html>

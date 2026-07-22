@@ -11,6 +11,8 @@
 
 <!DOCTYPE html>
 
+<!DOCTYPE html>
+
 <html lang="pt-BR"><head><script id="early-device-detection">
 (function () {
   var viewport = Math.min(
@@ -19,29 +21,11 @@
     window.visualViewport ? window.visualViewport.width : 9999
   );
 
-  var shortSide = Math.min(
-    window.screen && window.screen.width
-      ? window.screen.width
-      : viewport,
-    window.screen && window.screen.height
-      ? window.screen.height
-      : viewport
-  );
-
-  var touch =
-    (navigator.maxTouchPoints || 0) > 0 ||
-    (window.matchMedia &&
-      window.matchMedia("(pointer: coarse)").matches);
-
   var device = "desktop";
 
-  if (viewport <= 700 || shortSide <= 600) {
+  if (viewport <= 700) {
     device = "mobile";
-  } else if (
-    viewport <= 1100 ||
-    shortSide <= 1100 ||
-    (touch && viewport <= 1366)
-  ) {
+  } else if (viewport <= 1100) {
     device = "tablet";
   }
 
@@ -419,7 +403,7 @@ dialog.site-dialog > .modal-card::-webkit-scrollbar-thumb:hover {
     max-height: calc(100dvh - 10px) !important;
   }
 }
-</style><link href="assets/css/responsive.css?v=2.5.2" rel="stylesheet"/><link href="assets/css/public-menu-fix.css?v=2.5.2" rel="stylesheet"/><script defer="" src="assets/js/public-menu.js?v=2.5.2"></script></head>
+</style><link href="assets/css/responsive.css?v=2.5.3" rel="stylesheet"/><link href="assets/css/public-menu-fix.css?v=2.5.3" rel="stylesheet"/><script defer="" src="assets/js/public-menu.js?v=2.5.3"></script></head>
 <body data-page="gifts">
 <header class="site-header"><div class="header-inner"><a class="brand" href="index.html"><img alt="" src="assets/img/monograma.svg"/><span data-site-name="">Mislaine &amp; Emerson</span></a><button aria-expanded="false" aria-label="Abrir menu" class="menu-toggle" data-menu-toggle="" type="button">☰</button><nav class="site-nav" data-site-nav=""><a href="index.html">Início</a><a href="confirmar-presenca.html">Confirmar presença</a><a aria-current="page" href="lista-presentes.html">Lista de presentes</a></nav></div></header>
 <main><section class="page-hero"><div class="container"><p class="eyebrow">Escolha com carinho</p><h1>Lista de presentes</h1><p>Reserve um presente por 24 horas para comprar na loja ou contribua por PIX. Os pagamentos PIX são confirmados manualmente pelos administradores.</p></div></section>
@@ -454,5 +438,5 @@ dialog.site-dialog > .modal-card::-webkit-scrollbar-thumb:hover {
 <div class="notice hidden" id="myReservationsMessage" style="margin-top:18px"></div>
 <div class="hidden" id="myReservationsList" style="margin-top:18px"></div>
 </div></dialog>
-<script src="assets/js/common.js?v=2.5.2" type="module"></script><script src="assets/js/presentes.js?v=2.5.0" type="module"></script>
+<script src="assets/js/common.js?v=2.5.3" type="module"></script><script src="assets/js/presentes.js?v=2.5.0" type="module"></script>
 </body></html>

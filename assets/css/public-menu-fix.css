@@ -7,7 +7,7 @@
   display: none;
 }
 
-@media (max-width: 1100px), (hover: none) and (pointer: coarse) {
+@media (max-width: 1100px) {
   .site-header {
     z-index: 1000 !important;
     overflow: visible !important;
@@ -106,5 +106,36 @@
     right: 8px !important;
     left: 8px !important;
     max-height: calc(100dvh - 80px) !important;
+  }
+}
+
+
+@media (min-width: 1101px) {
+  .menu-toggle {
+    display: none !important;
+  }
+
+  .site-nav {
+    position: static !important;
+    inset: auto !important;
+    display: flex !important;
+    width: auto !important;
+    max-width: none !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+  .public-menu-backdrop {
+    display: none !important;
   }
 }

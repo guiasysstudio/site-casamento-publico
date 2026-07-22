@@ -3,6 +3,8 @@
 
 <!DOCTYPE html>
 
+<!DOCTYPE html>
+
 <html lang="pt-BR"><head><script id="early-device-detection">
 (function () {
   var viewport = Math.min(
@@ -11,36 +13,18 @@
     window.visualViewport ? window.visualViewport.width : 9999
   );
 
-  var shortSide = Math.min(
-    window.screen && window.screen.width
-      ? window.screen.width
-      : viewport,
-    window.screen && window.screen.height
-      ? window.screen.height
-      : viewport
-  );
-
-  var touch =
-    (navigator.maxTouchPoints || 0) > 0 ||
-    (window.matchMedia &&
-      window.matchMedia("(pointer: coarse)").matches);
-
   var device = "desktop";
 
-  if (viewport <= 700 || shortSide <= 600) {
+  if (viewport <= 700) {
     device = "mobile";
-  } else if (
-    viewport <= 1100 ||
-    shortSide <= 1100 ||
-    (touch && viewport <= 1366)
-  ) {
+  } else if (viewport <= 1100) {
     device = "tablet";
   }
 
   document.documentElement.dataset.device = device;
 })();
 </script><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" name="viewport"/>
-<title>Confirmar presença — Mislaine &amp; Emerson</title><link href="assets/img/monograma.svg" rel="icon" type="image/svg+xml"/><link href="assets/css/styles.css?v=2.5.0" rel="stylesheet"/><link href="assets/css/responsive.css?v=2.5.2" rel="stylesheet"/><link href="assets/css/public-menu-fix.css?v=2.5.2" rel="stylesheet"/><script defer="" src="assets/js/public-menu.js?v=2.5.2"></script></head>
+<title>Confirmar presença — Mislaine &amp; Emerson</title><link href="assets/img/monograma.svg" rel="icon" type="image/svg+xml"/><link href="assets/css/styles.css?v=2.5.0" rel="stylesheet"/><link href="assets/css/responsive.css?v=2.5.3" rel="stylesheet"/><link href="assets/css/public-menu-fix.css?v=2.5.3" rel="stylesheet"/><script defer="" src="assets/js/public-menu.js?v=2.5.3"></script></head>
 <body data-page="confirmation">
 <header class="site-header"><div class="header-inner"><a class="brand" href="index.html"><img alt="" src="assets/img/monograma.svg"/><span data-site-name="">Mislaine &amp; Emerson</span></a><button aria-expanded="false" aria-label="Abrir menu" class="menu-toggle" data-menu-toggle="" type="button">☰</button><nav class="site-nav" data-site-nav=""><a href="index.html">Início</a><a aria-current="page" href="confirmar-presenca.html">Confirmar presença</a><a href="lista-presentes.html">Lista de presentes</a></nav></div></header>
 <main><section class="page-hero"><div class="container"><p class="eyebrow">Esperamos por você</p><h1>Confirmação de presença</h1><p>Informe os dados da família. Filhos com até 12 anos são contabilizados como crianças; acima de 12 anos, como adultos.</p></div></section>
@@ -61,5 +45,5 @@
 </div></div></section></main>
 <footer class="site-footer"><div class="container">Casamento de <span data-site-name="">Mislaine &amp; Emerson</span></div></footer>
 <template id="childTemplate"><div class="child-row" data-child-row=""><div class="field"><label>Nome do filho</label><input data-child-name="" maxlength="120" required=""/></div><div class="field"><label>Idade</label><input data-child-age="" max="99" min="0" required="" type="number"/></div><button class="icon-button" data-remove-child="" type="button">Remover</button></div></template>
-<script src="assets/js/common.js?v=2.5.2" type="module"></script><script src="assets/js/confirmacao.js?v=2.5.0" type="module"></script>
+<script src="assets/js/common.js?v=2.5.3" type="module"></script><script src="assets/js/confirmacao.js?v=2.5.0" type="module"></script>
 </body></html>

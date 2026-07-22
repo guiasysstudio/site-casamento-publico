@@ -13,27 +13,11 @@ function resolveResponsiveDevice() {
     ? Math.min(...viewportValues)
     : 1280;
 
-  const screenShortSide = Math.min(
-    Number(window.screen?.width || viewportWidth),
-    Number(window.screen?.height || viewportWidth)
-  );
-
-  const touchDevice =
-    navigator.maxTouchPoints > 0 ||
-    window.matchMedia("(pointer: coarse)").matches;
-
   let device = "desktop";
 
-  if (
-    viewportWidth <= 700 ||
-    screenShortSide <= 600
-  ) {
+  if (viewportWidth <= 700) {
     device = "mobile";
-  } else if (
-    viewportWidth <= 1100 ||
-    screenShortSide <= 1100 ||
-    (touchDevice && viewportWidth <= 1366)
-  ) {
+  } else if (viewportWidth <= 1100) {
     device = "tablet";
   }
 
