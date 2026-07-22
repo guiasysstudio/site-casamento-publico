@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Confirmar presença — Mislaine & Emerson</title><link rel="icon" href="assets/img/monograma.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/css/styles.css"></head>
+<body data-page="confirmation">
+<header class="site-header"><div class="header-inner"><a class="brand" href="index.html"><img src="assets/img/monograma.svg" alt=""><span data-site-name>Mislaine & Emerson</span></a><button class="menu-toggle" type="button" data-menu-toggle aria-label="Abrir menu" aria-expanded="false">☰</button><nav class="site-nav" data-site-nav><a href="index.html">Início</a><a href="confirmar-presenca.html" aria-current="page">Confirmar presença</a><a href="lista-presentes.html">Lista de presentes</a></nav></div></header>
+<main><section class="page-hero"><div class="container"><p class="eyebrow">Esperamos por você</p><h1>Confirmação de presença</h1><p>Informe os dados da família. Filhos com até 12 anos são contabilizados como crianças; acima de 12 anos, como adultos.</p></div></section>
+<section class="section"><div class="container"><div data-global-message class="hidden"></div><div class="card panel">
+<div id="deadlineNotice" class="notice warning hidden"></div>
+<div class="tabs"><button class="tab-button active" type="button" data-tab="new">Nova confirmação</button><button class="tab-button" type="button" data-tab="lookup">Consultar confirmação</button></div>
+<section data-tab-panel="new"><form id="confirmationForm"><input type="hidden" id="confirmationDocId">
+<div class="form-grid"><div class="field"><label for="responsibleName">Nome completo</label><input id="responsibleName" autocomplete="name" required maxlength="120"></div>
+<div class="field"><label for="whatsapp">WhatsApp</label><input id="whatsapp" inputmode="tel" autocomplete="tel" placeholder="(69) 99999-9999" required maxlength="16"></div>
+<div class="field full"><label class="checkbox-row"><input id="hasSpouse" type="checkbox">Vou levar cônjuge ou acompanhante adulto</label></div>
+<div id="spouseField" class="field full hidden"><label for="spouseName">Nome do cônjuge ou acompanhante</label><input id="spouseName" maxlength="120"></div>
+<div class="field full"><span class="field-label">Filhos</span><p style="margin:0;color:var(--muted)">Adicione quantos filhos forem necessários e informe o nome e a idade.</p></div>
+<div class="field full"><div id="childrenList" class="children-list"></div><button id="addChildButton" class="btn btn-secondary" type="button">+ Adicionar filho</button></div>
+<div class="field full"><div class="summary-box"><div class="summary-item"><strong id="adultCount">1</strong><span>Adultos</span></div><div class="summary-item"><strong id="childCount">0</strong><span>Crianças</span></div><div class="summary-item"><strong id="totalCount">1</strong><span>Total</span></div></div></div></div>
+<div id="formMessage" class="notice hidden" style="margin-top:18px"></div><div class="actions"><button id="submitConfirmation" class="btn btn-primary" type="submit">Confirmar presença</button><button id="cancelEditButton" class="btn btn-ghost hidden" type="button">Cancelar edição</button></div>
+</form></section>
+<section class="hidden" data-tab-panel="lookup"><form id="lookupForm"><div class="form-grid"><div class="field"><label for="lookupName">Nome do responsável</label><input id="lookupName" required maxlength="120"></div><div class="field"><label for="lookupWhatsapp">WhatsApp</label><input id="lookupWhatsapp" inputmode="tel" placeholder="(69) 99999-9999" required maxlength="16"></div></div><div class="actions"><button class="btn btn-primary" type="submit">Consultar confirmação</button></div></form><div id="lookupResult" class="hidden" style="margin-top:24px"></div></section>
+</div></div></section></main>
+<footer class="site-footer"><div class="container">Casamento de <span data-site-name>Mislaine & Emerson</span></div></footer>
+<template id="childTemplate"><div class="child-row" data-child-row><div class="field"><label>Nome do filho</label><input data-child-name maxlength="120" required></div><div class="field"><label>Idade</label><input data-child-age type="number" min="0" max="99" required></div><button class="icon-button" data-remove-child type="button">Remover</button></div></template>
+<script type="module" src="assets/js/common.js"></script><script type="module" src="assets/js/confirmacao.js"></script>
+</body></html>
