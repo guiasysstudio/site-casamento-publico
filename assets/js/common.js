@@ -120,10 +120,14 @@ function startCountdown(date) {
   countdownTimer = setInterval(update, 1000);
 }
 function setupMenu() {
+  if (window.__PUBLIC_MENU_READY__) return;
+
   const button = document.querySelector("[data-menu-toggle]");
   const nav = document.querySelector("[data-site-nav]");
 
   if (!button || !nav) return;
+
+  window.__PUBLIC_MENU_READY__ = true;
 
   const closeMenu = () => {
     nav.classList.remove("open");

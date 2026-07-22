@@ -1,0 +1,110 @@
+/* =========================================================
+   MENU PÚBLICO ROBUSTO — ETAPA 2.5.2
+   Carregado por último e independente do Firebase.
+   ========================================================= */
+
+.public-menu-backdrop {
+  display: none;
+}
+
+@media (max-width: 1100px), (hover: none) and (pointer: coarse) {
+  .site-header {
+    z-index: 1000 !important;
+    overflow: visible !important;
+  }
+
+  .header-inner {
+    overflow: visible !important;
+  }
+
+  .menu-toggle {
+    position: relative !important;
+    z-index: 1003 !important;
+    display: inline-grid !important;
+    place-items: center !important;
+    flex: 0 0 auto;
+  }
+
+  .site-nav {
+    position: fixed !important;
+    top: calc(env(safe-area-inset-top) + 72px) !important;
+    right: 12px !important;
+    left: 12px !important;
+    z-index: 1002 !important;
+    width: auto !important;
+    max-width: none !important;
+    max-height: calc(100dvh - 88px) !important;
+    display: none !important;
+    grid-template-columns: 1fr !important;
+    gap: 4px !important;
+    margin: 0 !important;
+    padding: 10px !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 18px !important;
+    background: var(--warm-white) !important;
+    box-shadow: 0 24px 70px rgba(52, 33, 22, .24) !important;
+    transform: translateY(-8px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      transform .16s ease,
+      opacity .16s ease,
+      visibility .16s ease;
+  }
+
+  .site-nav.open {
+    display: grid !important;
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .site-nav a {
+    width: 100% !important;
+    min-height: 46px;
+    display: flex !important;
+    align-items: center;
+    padding: 11px 14px !important;
+    border-radius: 12px !important;
+    text-align: left !important;
+  }
+
+  .public-menu-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1001;
+    width: 100%;
+    height: 100%;
+    display: block;
+    padding: 0;
+    border: 0;
+    background: rgba(52, 33, 22, .42);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity .16s ease, visibility .16s ease;
+  }
+
+  .public-menu-backdrop.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  body.public-menu-open {
+    overflow: hidden !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .site-nav {
+    top: calc(env(safe-area-inset-top) + 68px) !important;
+    right: 8px !important;
+    left: 8px !important;
+    max-height: calc(100dvh - 80px) !important;
+  }
+}
