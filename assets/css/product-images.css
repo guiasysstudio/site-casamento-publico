@@ -1,0 +1,77 @@
+.gift-media.image-mode-fit {
+  background: #fffdf9 !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(98, 51, 6, .08),
+    inset 0 0 34px rgba(216, 193, 163, .18);
+}
+
+.gift-media.image-mode-fit img {
+  padding: 5px;
+  border-radius: 11px;
+  background: #fffdf9;
+}
+
+.gift-media.image-mode-original {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(216, 193, 163, .25),
+      rgba(247, 242, 233, .82)
+    ) !important;
+}
+
+.gift-media.image-mode-original img {
+  border-radius: 10px;
+}
+
+.gift-media.image-mode-remove-white {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(216, 193, 163, .42),
+      rgba(247, 242, 233, .92)
+    ) !important;
+}
+
+.gift-media.image-mode-remove-white img {
+  background: transparent;
+  filter: drop-shadow(0 7px 8px rgba(52, 33, 22, .14));
+}
+
+.gift-media.image-cors-fallback {
+  background: #fffdf9 !important;
+}
+
+.gift-media.image-cors-fallback img {
+  padding: 7px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 5px 16px rgba(52, 33, 22, .06);
+}
+
+.gift-media .broken-image-placeholder {
+  width: 68px;
+  height: 68px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  color: var(--primary);
+  background: rgba(255, 253, 249, .9);
+  font-size: 1.8rem;
+}
+
+/* ESCALA INDIVIDUAL DA IMAGEM — 2.6.8 */
+
+/*
+ * Transform é usado em vez de largura/altura para não conflitar com
+ * as regras responsivas do celular. O mesmo percentual é preservado
+ * em desktop, tablet e celular.
+ */
+.gift-media img[data-product-image] {
+  transform:
+    scale(var(--gift-image-scale, .85)) !important;
+  transform-origin: center center;
+  transition: none !important;
+  will-change: transform;
+}

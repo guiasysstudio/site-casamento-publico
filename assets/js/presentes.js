@@ -172,6 +172,22 @@ const escapeHtml = value => String(value || "")
   .replaceAll('"', "&quot;")
   .replaceAll("'", "&#039;");
 
+
+function normalizeImageMode(value) {
+  return ["original", "fit", "remove-white"].includes(value)
+    ? value
+    : "fit";
+}
+
+
+function normalizeImageScale(value) {
+  const number = Number(value);
+
+  if (!Number.isFinite(number)) return 85;
+
+  return Math.max(35, Math.min(160, Math.round(number)));
+}
+
 function icon(categoryName) {
   return ({
     "Cozinha": "🍽️",
@@ -287,9 +303,16 @@ function render() {
           if (reserved) reserveText = "Reservado";
           else if (!hasStoreLink) reserveText = "Link indisponível";
 
+          const imageMode = normalizeImageMode(gift.imageMode);
+          const imageScale = normalizeImageScale(gift.imageScale);
+          const imageFallback =
+            gift.imageProcessingStatus === "cors-fallback"
+              ? " image-cors-fallback"
+              : "";
+
           return `
             <article class="gift-card">
-              <div class="gift-media">
+              <div class="gift-media image-mode-${imageMode}${imageFallback}">
                 ${
                   gift.imagemUrl
                     ? `
@@ -297,6 +320,11 @@ function render() {
                         src="${escapeHtml(gift.imagemUrl)}"
                         alt="${escapeHtml(gift.nome)}"
                         loading="lazy"
+                        decoding="async"
+                        referrerpolicy="no-referrer"
+                        data-product-image
+                        data-fallback-icon="${escapeHtml(icon(gift.categoria))}"
+                        style="--gift-image-scale:${imageScale / 100}"
                       >
                     `
                     : `
@@ -367,6 +395,25 @@ function render() {
         </div>
       `
   );
+
+  grid.querySelectorAll("[data-product-image]").forEach(image => {
+    image.addEventListener("error", () => {
+      const media = image.closest(".gift-media");
+
+      if (!media || media.querySelector(".broken-image-placeholder")) {
+        return;
+      }
+
+      image.remove();
+
+      const placeholder = document.createElement("div");
+      placeholder.className = "broken-image-placeholder";
+      placeholder.textContent = image.dataset.fallbackIcon || "🎁";
+      placeholder.title = "Não foi possível carregar a imagem";
+
+      media.appendChild(placeholder);
+    });
+  });
 
   grid.querySelectorAll("[data-reserve]").forEach(button => {
     button.addEventListener("click", () => {

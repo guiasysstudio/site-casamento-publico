@@ -1,0 +1,228 @@
+/* =========================================================
+   CARTÕES DE PRESENTES COMPACTOS — ETAPA 2.5.4
+   ========================================================= */
+
+.gift-list-section .container {
+  width: min(1580px, calc(100% - 32px)) !important;
+}
+
+.gift-list-section .gift-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  gap: 14px !important;
+  align-items: stretch;
+}
+
+.gift-list-section .money-gift-card {
+  grid-column: 1 / -1;
+}
+
+.gift-list-section .gift-card {
+  min-width: 0;
+  border-radius: 18px !important;
+}
+
+.gift-list-section .gift-media {
+  min-height: 150px !important;
+  height: 150px !important;
+  padding: 14px !important;
+}
+
+.gift-list-section .gift-media img {
+  width: 100% !important;
+  height: 122px !important;
+  object-fit: contain !important;
+}
+
+.gift-list-section .gift-placeholder {
+  width: 82px !important;
+  height: 82px !important;
+  font-size: 2.2rem !important;
+}
+
+.gift-list-section .gift-body {
+  min-width: 0;
+  padding: 14px !important;
+}
+
+.gift-list-section .gift-meta {
+  gap: 5px !important;
+  margin-bottom: 9px !important;
+}
+
+.gift-list-section .badge {
+  padding: 4px 7px !important;
+  font-size: .62rem !important;
+  line-height: 1.1 !important;
+}
+
+.gift-list-section .gift-card h2 {
+  display: -webkit-box;
+  min-height: 2.05em;
+  margin: 0 0 10px !important;
+  overflow: hidden;
+  font-size: clamp(1.35rem, 1.55vw, 1.75rem) !important;
+  line-height: 1.02 !important;
+  overflow-wrap: anywhere;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+.gift-list-section .gift-price {
+  margin: 0 0 7px !important;
+  font-size: 1.12rem !important;
+  line-height: 1.15;
+}
+
+.gift-list-section .gift-store {
+  min-height: 2.7em;
+  margin: 0 0 12px !important;
+  font-size: .76rem !important;
+  line-height: 1.35 !important;
+}
+
+.gift-list-section .gift-actions {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 7px !important;
+}
+
+.gift-list-section .gift-actions .btn {
+  min-width: 0 !important;
+  min-height: 43px !important;
+  padding: 7px 6px !important;
+  border-radius: 12px !important;
+  font-size: .7rem !important;
+  line-height: 1.2 !important;
+  white-space: normal !important;
+}
+
+/* Computadores médios: quatro por linha. */
+@media (min-width: 1101px) and (max-width: 1499px) {
+  .gift-list-section .gift-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  }
+}
+
+/* Tablets: três por linha em paisagem e dois em telas menores. */
+@media (min-width: 901px) and (max-width: 1100px) {
+  .gift-list-section .gift-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  .gift-list-section .gift-actions {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (min-width: 701px) and (max-width: 900px) {
+  .gift-list-section .gift-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+  }
+
+  .gift-list-section .gift-actions {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Celular: dois produtos lado a lado. */
+@media (max-width: 700px) {
+  .gift-list-section .container {
+    width: calc(100% - 16px) !important;
+  }
+
+  .gift-list-section .gift-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+  }
+
+  .gift-list-section .gift-card {
+    border-radius: 15px !important;
+  }
+
+  .gift-list-section .gift-media {
+    min-height: 112px !important;
+    height: 112px !important;
+    padding: 8px !important;
+  }
+
+  .gift-list-section .gift-media img {
+    height: 96px !important;
+  }
+
+  .gift-list-section .gift-placeholder {
+    width: 64px !important;
+    height: 64px !important;
+    font-size: 1.75rem !important;
+  }
+
+  .gift-list-section .gift-body {
+    padding: 10px !important;
+  }
+
+  .gift-list-section .gift-meta {
+    align-items: flex-start;
+    gap: 4px !important;
+    margin-bottom: 7px !important;
+  }
+
+  .gift-list-section .badge {
+    padding: 3px 5px !important;
+    font-size: .52rem !important;
+  }
+
+  .gift-list-section .gift-card h2 {
+    min-height: 2.15em;
+    margin-bottom: 8px !important;
+    font-size: clamp(1.02rem, 5.5vw, 1.28rem) !important;
+    line-height: 1.03 !important;
+  }
+
+  .gift-list-section .gift-price {
+    margin-bottom: 5px !important;
+    font-size: .94rem !important;
+  }
+
+  .gift-list-section .gift-store {
+    min-height: 3.5em;
+    margin-bottom: 9px !important;
+    font-size: .63rem !important;
+    line-height: 1.3 !important;
+  }
+
+  .gift-list-section .gift-actions {
+    grid-template-columns: 1fr !important;
+    gap: 6px !important;
+  }
+
+  .gift-list-section .gift-actions .btn {
+    min-height: 39px !important;
+    padding: 6px 4px !important;
+    border-radius: 10px !important;
+    font-size: .62rem !important;
+    line-height: 1.15 !important;
+  }
+
+  .gift-list-section .money-gift-card {
+    padding: 16px 13px !important;
+  }
+}
+
+/* Somente aparelhos excepcionalmente estreitos usam uma coluna. */
+@media (max-width: 335px) {
+  .gift-list-section .gift-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .gift-list-section .gift-media {
+    height: 145px !important;
+  }
+
+  .gift-list-section .gift-media img {
+    height: 125px !important;
+  }
+
+  .gift-list-section .gift-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}

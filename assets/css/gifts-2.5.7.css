@@ -1,0 +1,417 @@
+/* Lista de presentes — versão 2.5.7 */
+
+html,
+body {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  overflow-x: clip !important;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.site-header,
+.header-inner,
+main,
+.page-hero,
+.section,
+.container,
+.toolbar,
+.toolbar-extra,
+#giftGrid,
+#giftGrid > *,
+#giftGrid .gift-body {
+  min-width: 0 !important;
+}
+
+/* Cabeçalho */
+@media (max-width: 1100px) {
+  .header-inner {
+    width: calc(100% - 24px) !important;
+    min-height: 66px !important;
+    gap: 10px !important;
+  }
+
+  .brand {
+    min-width: 0 !important;
+    max-width: calc(100% - 54px) !important;
+    overflow: hidden !important;
+  }
+
+  .brand img {
+    width: 38px !important;
+    height: 38px !important;
+    flex: 0 0 38px !important;
+  }
+
+  .brand span {
+    min-width: 0 !important;
+    overflow: hidden !important;
+    font-size: .92rem !important;
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .menu-toggle {
+    display: inline-grid !important;
+    place-items: center !important;
+    flex: 0 0 44px !important;
+    width: 44px !important;
+    height: 44px !important;
+  }
+
+  .site-nav:not(.open) {
+    display: none !important;
+  }
+
+  .site-nav.open {
+    display: grid !important;
+  }
+}
+
+@media (min-width: 1101px) {
+  .menu-toggle {
+    display: none !important;
+  }
+
+  .site-nav {
+    position: static !important;
+    display: flex !important;
+    width: auto !important;
+    max-height: none !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    pointer-events: auto !important;
+  }
+}
+
+/* Container da lista */
+.gift-list-section {
+  width: 100% !important;
+  overflow-x: clip !important;
+}
+
+.gift-list-section > .container {
+  width: min(1800px, calc(100% - 32px)) !important;
+  max-width: none !important;
+  margin-inline: auto !important;
+}
+
+.toolbar {
+  width: 100% !important;
+  grid-template-columns:
+    minmax(0, 1.35fr)
+    minmax(180px, .7fr)
+    minmax(180px, .7fr) !important;
+}
+
+.toolbar input,
+.toolbar select {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+
+/* Grade padrão: 4 */
+#giftGrid.gift-grid {
+  display: grid !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 14px !important;
+  align-items: stretch !important;
+}
+
+/* Tela grande: 5 */
+@media (min-width: 1500px) {
+  #giftGrid.gift-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  }
+}
+
+/* Tablet: 3 */
+@media (min-width: 701px) and (max-width: 1050px) {
+  #giftGrid.gift-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+  }
+}
+
+/* Celular: 2 */
+@media (min-width: 336px) and (max-width: 700px) {
+  .gift-list-section > .container {
+    width: calc(100% - 12px) !important;
+  }
+
+  #giftGrid.gift-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 7px !important;
+  }
+}
+
+/* Muito estreito: 1 */
+@media (max-width: 335px) {
+  #giftGrid.gift-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Classes de segurança definidas pelo JS */
+html[data-gifts-layout="phone"] #giftGrid.gift-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+
+html[data-gifts-layout="tablet"] #giftGrid.gift-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+}
+
+html[data-gifts-layout="desktop"] #giftGrid.gift-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+}
+
+html[data-gifts-layout="wide"] #giftGrid.gift-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+}
+
+/* Card inteiro */
+#giftGrid .gift-card {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  height: auto !important;
+  display: grid !important;
+  grid-template-rows: 148px minmax(0, 1fr) !important;
+  overflow: hidden !important;
+  border-radius: 17px !important;
+}
+
+#giftGrid .gift-media {
+  width: 100% !important;
+  height: 148px !important;
+  min-height: 0 !important;
+  padding: 12px !important;
+}
+
+#giftGrid .gift-media img {
+  width: 100% !important;
+  height: 124px !important;
+  max-height: 124px !important;
+  object-fit: contain !important;
+}
+
+#giftGrid .gift-placeholder {
+  width: 74px !important;
+  height: 74px !important;
+  font-size: 2rem !important;
+}
+
+#giftGrid .gift-body {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 13px !important;
+}
+
+#giftGrid .gift-meta {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 5px !important;
+  margin-bottom: 8px !important;
+}
+
+#giftGrid .badge {
+  min-height: 22px !important;
+  padding: 3px 7px !important;
+  font-size: .58rem !important;
+  line-height: 1.05 !important;
+}
+
+/* Fonte dos produtos sem sobreposição */
+#giftGrid .gift-card h2 {
+  display: -webkit-box !important;
+  min-height: 2.55em !important;
+  max-height: 2.55em !important;
+  margin: 0 0 8px !important;
+  overflow: hidden !important;
+  color: #342116 !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: clamp(1rem, 1.15vw, 1.25rem) !important;
+  font-weight: 800 !important;
+  line-height: 1.27 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  overflow-wrap: anywhere !important;
+  font-variant-ligatures: none !important;
+  font-feature-settings: "liga" 0, "dlig" 0, "clig" 0, "calt" 0 !important;
+  -webkit-box-orient: vertical !important;
+  -webkit-line-clamp: 2 !important;
+  line-clamp: 2 !important;
+}
+
+#giftGrid .gift-price {
+  margin: 0 0 5px !important;
+  font-size: 1rem !important;
+  line-height: 1.15 !important;
+}
+
+#giftGrid .gift-store {
+  min-height: 2.65em !important;
+  margin: 0 0 10px !important;
+  font-size: .7rem !important;
+  line-height: 1.32 !important;
+}
+
+#giftGrid .gift-actions {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 6px !important;
+  margin-top: auto !important;
+}
+
+#giftGrid .gift-actions .btn {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 42px !important;
+  padding: 6px 5px !important;
+  border-radius: 10px !important;
+  font-size: .66rem !important;
+  line-height: 1.18 !important;
+  white-space: normal !important;
+}
+
+/* Card no celular */
+@media (min-width: 336px) and (max-width: 700px) {
+  .toolbar {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+
+  .toolbar-extra {
+    display: block !important;
+    margin: 10px 0 18px !important;
+  }
+
+  .toolbar-extra .btn {
+    width: 100% !important;
+  }
+
+  #giftGrid .gift-card {
+    grid-template-rows: 92px minmax(0, 1fr) !important;
+    border-radius: 13px !important;
+  }
+
+  #giftGrid .gift-media {
+    height: 92px !important;
+    padding: 6px !important;
+  }
+
+  #giftGrid .gift-media img {
+    height: 80px !important;
+    max-height: 80px !important;
+  }
+
+  #giftGrid .gift-placeholder {
+    width: 52px !important;
+    height: 52px !important;
+    font-size: 1.45rem !important;
+  }
+
+  #giftGrid .gift-body {
+    padding: 8px !important;
+  }
+
+  #giftGrid .gift-meta {
+    gap: 3px !important;
+    margin-bottom: 6px !important;
+  }
+
+  #giftGrid .badge {
+    min-height: 18px !important;
+    padding: 2px 4px !important;
+    font-size: .46rem !important;
+  }
+
+  #giftGrid .gift-card h2 {
+    min-height: 2.7em !important;
+    max-height: 2.7em !important;
+    margin-bottom: 6px !important;
+    font-size: clamp(.75rem, 3.7vw, .92rem) !important;
+    line-height: 1.35 !important;
+  }
+
+  #giftGrid .gift-price {
+    margin-bottom: 4px !important;
+    font-size: .78rem !important;
+  }
+
+  #giftGrid .gift-store {
+    min-height: 3.8em !important;
+    margin-bottom: 7px !important;
+    font-size: .53rem !important;
+    line-height: 1.3 !important;
+  }
+
+  #giftGrid .gift-actions {
+    grid-template-columns: 1fr !important;
+    gap: 5px !important;
+  }
+
+  #giftGrid .gift-actions .btn {
+    min-height: 34px !important;
+    padding: 5px 3px !important;
+    border-radius: 8px !important;
+    font-size: .52rem !important;
+    line-height: 1.12 !important;
+  }
+}
+
+/* Presente em dinheiro */
+#giftGrid > .money-gift-card {
+  grid-column: 1 / -1 !important;
+  width: 100% !important;
+}
+
+@media (max-width: 700px) {
+  #giftGrid > .money-gift-card {
+    display: grid !important;
+    grid-template-columns: 48px minmax(0, 1fr) !important;
+    gap: 9px !important;
+    padding: 13px 11px !important;
+    text-align: left !important;
+  }
+
+  #giftGrid > .money-gift-card .money-icon {
+    width: 48px !important;
+    height: 48px !important;
+    margin: 0 !important;
+    font-size: 1rem !important;
+  }
+
+  #giftGrid > .money-gift-card h2 {
+    margin: 0 0 3px !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 1.05rem !important;
+    font-weight: 800 !important;
+    line-height: 1.15 !important;
+  }
+
+  #giftGrid > .money-gift-card p {
+    margin: 0 !important;
+    font-size: .66rem !important;
+    line-height: 1.35 !important;
+  }
+
+  #giftGrid > .money-gift-card .btn {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    min-height: 38px !important;
+  }
+}
