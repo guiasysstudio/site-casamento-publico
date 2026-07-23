@@ -7,6 +7,8 @@
 
 <!DOCTYPE html>
 
+<!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8"/>
@@ -43,6 +45,6 @@
 <dialog aria-labelledby="pixTitle" class="site-dialog site-dialog-large" id="pixModal"><div class="modal-card"><div class="modal-header"><div><p class="eyebrow">Presentear por PIX</p><h2 id="pixTitle">Presente</h2></div><button aria-label="Fechar" class="modal-close" data-close-modal="" type="button">✕</button></div><form id="pixForm"><input id="pixGiftId" type="hidden"/><div class="form-grid"><div class="field"><label for="pixName">Nome e sobrenome</label><input autocomplete="name" id="pixName" maxlength="120" minlength="5" placeholder="Ex.: João da Silva" required=""/></div><div class="field"><label for="pixWhatsapp">WhatsApp</label><input autocomplete="tel" id="pixWhatsapp" inputmode="numeric" maxlength="15" pattern="\([1-9]\d\) 9\d{4}-\d{4}" placeholder="(69) 99999-9999" required="" type="tel"/></div><div class="field full"><label for="pixValue">Valor</label><input id="pixValue" min=".01" required="" step=".01" type="number"/><small>O valor pode ser maior que o valor restante do produto.</small></div></div><div class="actions"><button class="btn btn-primary" id="generatePixButton" type="button">Gerar PIX</button></div><div class="hidden" id="pixGenerated"><div class="pix-box"><canvas id="pixQrCanvas"></canvas><div><p><strong id="pixBeneficiary"></strong></p><div class="field"><label for="pixPayload">PIX Copia e Cola</label><textarea id="pixPayload" readonly=""></textarea></div><div class="actions"><button class="btn btn-secondary" id="copyPixButton" type="button">Copiar código</button><button class="btn btn-primary" type="submit">Já fiz o PIX</button></div></div></div></div><div class="notice hidden" id="pixMessage" style="margin-top:16px"></div></form></div></dialog>
 <dialog class="site-dialog site-dialog-large" id="myReservationsModal"><div class="modal-card"><div class="modal-header"><div><p class="eyebrow">Acompanhe suas escolhas</p><h2>Minhas reservas</h2></div><button aria-label="Fechar" class="modal-close" data-close-modal="" type="button">✕</button></div><form id="myReservationsLookupForm"><div class="form-grid"><div class="field"><label for="myReservationsName">Nome e sobrenome</label><input autocomplete="name" id="myReservationsName" maxlength="120" minlength="5" placeholder="Ex.: João da Silva" required="" type="text"/><small>Digite o mesmo nome usado na reserva. Acentos e letras maiúsculas não fazem diferença.</small></div><div class="field"><label for="myReservationsWhatsapp">WhatsApp</label><input autocomplete="tel" id="myReservationsWhatsapp" inputmode="numeric" maxlength="15" pattern="\([1-9]\d\) 9\d{4}-\d{4}" placeholder="(69) 99999-9999" required="" type="tel"/></div></div><div class="actions"><button class="btn btn-primary" id="searchMyReservationsButton" type="submit">Consultar reservas</button></div></form><div class="notice hidden" id="myReservationsMessage" style="margin-top:16px"></div><div class="hidden" id="myReservationsList" style="margin-top:16px"></div></div></dialog>
 <script src="assets/js/common.js?v=260" type="module"></script>
-<script src="assets/js/presentes.js?v=2.6.9" type="module"></script>
+<script src="assets/js/presentes.js?v=2.7.0" type="module"></script>
 </body>
 </html>

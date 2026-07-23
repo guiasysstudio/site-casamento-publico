@@ -864,11 +864,22 @@ reservationForm.addEventListener("submit", async event => {
 
     render();
   } catch (error) {
-    console.error(error);
+    console.error("Erro ao reservar presente:", error);
+
+    const permissionDenied =
+      error?.code === "permission-denied" ||
+      /missing or insufficient permissions/i.test(
+        String(error?.message || "")
+      );
 
     message.className = "notice danger";
-    message.textContent =
-      error.message || "Não foi possível reservar.";
+    message.textContent = permissionDenied
+      ? "Não foi possível concluir a reserva agora. Atualize a página e tente novamente. Se o problema continuar, avise os noivos."
+      : (
+          error.message ||
+          "Não foi possível reservar este presente."
+        );
+
     message.classList.remove("hidden");
   } finally {
     reservationSubmitButton.disabled = false;
