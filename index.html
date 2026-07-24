@@ -1,54 +1,56 @@
 <!doctype html>
 <!DOCTYPE html>
 
-<!DOCTYPE html>
-
-<!DOCTYPE html>
-
-<!DOCTYPE html>
-
 <html lang="pt-BR">
-<head><script id="early-device-detection">
-(function () {
-  var viewport = Math.min(
-    window.innerWidth || 9999,
-    document.documentElement.clientWidth || 9999,
-    window.visualViewport ? window.visualViewport.width : 9999
-  );
-
-  var device = "desktop";
-
-  if (viewport <= 700) {
-    device = "mobile";
-  } else if (viewport <= 1100) {
-    device = "tablet";
-  }
-
-  document.documentElement.dataset.device = device;
-})();
-</script>
-<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" name="viewport"/>
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
 <meta content="Site do casamento. Confirme sua presença e conheça a lista de presentes." name="description"/>
 <title>Casamento de Mislaine &amp; Emerson</title>
 <link href="assets/img/monograma.svg" rel="icon" type="image/svg+xml"/>
-<link href="assets/css/styles.css?v=2.5.1" rel="stylesheet"/>
-<link href="assets/css/responsive.css?v=2.5.3" rel="stylesheet"/><link href="assets/css/public-menu-fix.css?v=2.5.3" rel="stylesheet"/><script defer="" src="assets/js/public-menu.js?v=2.5.3"></script></head>
+<link href="assets/css/public-site.css?v=260" rel="stylesheet"/>
+<script defer="" src="assets/js/public-menu.js?v=260"></script>
+<link href="assets/css/icon-system.css?v=2.8.0" rel="stylesheet"/><script defer="" src="assets/js/icon-system.js?v=2.8.0"></script></head>
 <body data-page="home">
-<header class="site-header"><div class="header-inner">
-<a class="brand" href="index.html"><img alt="" src="assets/img/monograma.svg"/><span data-site-name="">Mislaine &amp; Emerson</span></a>
-<button aria-expanded="false" aria-label="Abrir menu" class="menu-toggle" data-menu-toggle="" type="button">☰</button>
-<nav class="site-nav" data-site-nav=""><a aria-current="page" href="index.html">Início</a><a href="confirmar-presenca.html">Confirmar presença</a><a href="lista-presentes.html">Lista de presentes</a></nav>
-</div></header>
-<main class="hero"><div class="container hero-grid">
-<div class="monogram-card"><img alt="Monograma do casal" src="assets/img/monograma.svg"/></div>
-<div class="hero-copy"><p class="eyebrow">Nosso casamento</p><h1>Mislaine <span class="ampersand">&amp;</span> Emerson</h1>
-<p class="hero-intro" data-intro-text="">Estamos preparando este momento com muito carinho.</p>
-<div class="hidden" data-global-message=""></div>
-<div class="event-summary"><span class="event-pill event-date">📅 <span class="desktop-event-value" data-wedding-date="">6 de setembro de 2026</span><span class="mobile-event-value" data-wedding-date-short="">06/09/2026</span></span><span class="event-pill event-time">🕒 <span data-wedding-time="">15:30</span></span><a class="event-pill event-place" data-maps-link="" href="#" rel="noopener" target="_blank">📍 <span data-venue-name="">CATRE</span></a></div>
-<div class="actions"><a class="btn btn-primary" href="confirmar-presenca.html">Confirmar presença</a><a class="btn btn-secondary" href="lista-presentes.html">Ver lista de presentes</a></div>
-<div class="countdown" data-countdown=""><div class="countdown-item"><strong data-days="">0</strong><span>Dias</span></div><div class="countdown-item"><strong data-hours="">00</strong><span>Horas</span></div><div class="countdown-item"><strong data-minutes="">00</strong><span>Minutos</span></div><div class="countdown-item"><strong data-seconds="">00</strong><span>Segundos</span></div></div>
+<header class="site-header">
+<div class="header-inner">
+<a class="brand" href="index.html">
+<img alt="Monograma de Mislaine e Emerson" src="assets/img/monograma.svg"/>
+<span data-site-name="">Mislaine &amp; Emerson</span>
+</a>
+<button aria-expanded="false" aria-label="Abrir menu" class="menu-toggle" data-menu-toggle="" type="button"><span aria-hidden="true" class="ui-icon icon-menu"></span></button>
+<nav class="site-nav" data-site-nav="">
+<a aria-current="page" href="index.html"><span aria-hidden="true" class="ui-icon icon-home"></span>Início</a><a href="confirmar-presenca.html"><span aria-hidden="true" class="ui-icon icon-presence"></span>Confirmar presença</a><a href="lista-presentes.html"><span aria-hidden="true" class="ui-icon icon-gift"></span>Lista de presentes</a>
+</nav>
 </div>
-</div></main>
+</header>
+<main class="hero">
+<div class="container hero-grid">
+<div class="monogram-card"><img alt="Monograma do casal" src="assets/img/monograma.svg"/></div>
+<div class="hero-copy">
+<p class="eyebrow">Nosso casamento</p>
+<h1>Mislaine <span class="ampersand">&amp;</span> Emerson</h1>
+<p class="hero-intro" data-intro-text="">Estamos preparando este momento com muito carinho. Neste espaço você poderá confirmar sua presença e escolher uma forma especial de nos presentear.</p>
+<div class="hidden" data-global-message=""></div>
+<div class="event-summary">
+<span class="event-pill"><span aria-hidden="true" class="ui-icon icon-calendar"></span><span class="desktop-event-value" data-wedding-date="">06 de setembro de 2026</span><span class="mobile-event-value" data-wedding-date-short="">06/09/2026</span></span>
+<span class="event-pill"><span aria-hidden="true" class="ui-icon icon-clock"></span><span data-wedding-time="">17:00</span></span>
+<a class="event-pill" data-maps-link="" href="#" rel="noopener" target="_blank"><span aria-hidden="true" class="ui-icon icon-location"></span><span data-venue-name="">CATRE</span></a>
+</div>
+<div class="actions">
+<a class="btn btn-primary" href="confirmar-presenca.html"><span aria-hidden="true" class="ui-icon icon-presence"></span>Confirmar presença</a>
+<a class="btn btn-secondary" href="lista-presentes.html"><span aria-hidden="true" class="ui-icon icon-gift"></span>Ver lista de presentes</a>
+</div>
+<div class="countdown" data-countdown="">
+<div class="countdown-item"><strong data-days="">0</strong><span>Dias</span></div>
+<div class="countdown-item"><strong data-hours="">00</strong><span>Horas</span></div>
+<div class="countdown-item"><strong data-minutes="">00</strong><span>Minutos</span></div>
+<div class="countdown-item"><strong data-seconds="">00</strong><span>Segundos</span></div>
+</div>
+</div>
+</div>
+</main>
 <footer class="site-footer"><div class="container"><strong data-site-name="">Mislaine &amp; Emerson</strong><br/><span data-venue-address=""></span></div></footer>
-<script src="assets/js/common.js?v=2.5.3" type="module"></script>
-</body></html>
+<script src="assets/js/common.js?v=260" type="module"></script>
+</body>
+</html>

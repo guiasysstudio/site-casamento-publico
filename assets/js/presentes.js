@@ -1,7 +1,15 @@
 import { db, ensureAnonymousAuth } from "./firebase.js";
 import { getCurrentConfig } from "./common.js";
 import { getPixConfig, getDeliveryConfig } from "./config-service.js";
-import { buildPixPayload } from "./pix.js";
+import {
+  buildPixPayload,
+  normalizePixConfig,
+  validatePixPayload
+} from "./pix.js";
+
+import {
+  renderQrToCanvas
+} from "./qr-local.js";
 import {
   collection,
   query,
@@ -13,7 +21,8 @@ import {
   Timestamp,
   setDoc,
   getDoc,
-  getDocs
+  getDocs,
+  writeBatch
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
 const byId = id => document.getElementById(id);
@@ -50,6 +59,10 @@ const pixBeneficiary = byId("pixBeneficiary");
 const pixPayload = byId("pixPayload");
 const copyPixButton = byId("copyPixButton");
 const pixMessage = byId("pixMessage");
+const pixGiftSummary = byId("pixGiftSummary");
+const pixValueHelp = byId("pixValueHelp");
+const pixDestinationLabel = byId("pixDestinationLabel");
+const pixSubmitButton = byId("pixSubmitButton");
 
 const myReservationsButton = byId("myReservationsButton");
 const myReservationsModal = byId("myReservationsModal");
@@ -60,6 +73,15 @@ const searchMyReservationsButton = byId("searchMyReservationsButton");
 const myReservationsMessage = byId("myReservationsMessage");
 const myReservationsList = byId("myReservationsList");
 
+const myPixButton = byId("myPixButton");
+const myPixModal = byId("myPixModal");
+const myPixLookupForm = byId("myPixLookupForm");
+const myPixName = byId("myPixName");
+const myPixWhatsapp = byId("myPixWhatsapp");
+const searchMyPixButton = byId("searchMyPixButton");
+const myPixMessage = byId("myPixMessage");
+const myPixList = byId("myPixList");
+
 const requiredElements = {
   grid,
   reservationModal,
@@ -68,7 +90,9 @@ const requiredElements = {
   pixModal,
   pixForm,
   myReservationsModal,
-  myReservationsLookupForm
+  myReservationsLookupForm,
+  myPixModal,
+  myPixLookupForm
 };
 
 const missingElements = Object.entries(requiredElements)
@@ -85,6 +109,7 @@ let gifts = [];
 let selectedGift = null;
 let pixPayloadGenerated = "";
 let pixConfig = null;
+let pixGeneration = null;
 let currentReservationProfile = null;
 let reservationProfileCheckSequence = 0;
 
@@ -269,7 +294,7 @@ function render() {
 
   const moneyCard = `
     <article class="money-gift-card">
-      <div class="money-icon">R$</div>
+      <div class="money-icon"><span class="ui-icon icon-money" aria-hidden="true"></span></div>
       <div>
         <h2>Presente em Dinheiro</h2>
         <p style="margin:8px 0 0;color:var(--muted)">
@@ -328,9 +353,7 @@ function render() {
                       >
                     `
                     : `
-                      <div class="gift-placeholder">
-                        ${icon(gift.categoria)}
-                      </div>
+                      <div class="gift-placeholder"><span class="ui-icon icon-gift" aria-hidden="true"></span></div>
                     `
                 }
               </div>
@@ -408,7 +431,8 @@ function render() {
 
       const placeholder = document.createElement("div");
       placeholder.className = "broken-image-placeholder";
-      placeholder.textContent = image.dataset.fallbackIcon || "🎁";
+      placeholder.innerHTML =
+        '<span class="ui-icon icon-gift" aria-hidden="true"></span>';
       placeholder.title = "Não foi possível carregar a imagem";
 
       media.appendChild(placeholder);
@@ -641,7 +665,8 @@ deliveryChoice.addEventListener("change", () => {
 [
   reservationWhatsapp,
   pixWhatsapp,
-  myReservationsWhatsapp
+  myReservationsWhatsapp,
+  myPixWhatsapp
 ].forEach(input => {
   input.addEventListener("input", () => {
     input.value = maskPhone(input.value);
@@ -888,163 +913,752 @@ reservationForm.addEventListener("submit", async event => {
   }
 });
 
+function showPixMessage(message, type = "danger") {
+  pixMessage.className = `notice ${type}`;
+  pixMessage.textContent = message;
+  pixMessage.classList.remove("hidden");
+}
+
+function hidePixMessage() {
+  pixMessage.classList.add("hidden");
+  pixMessage.textContent = "";
+}
+
+function currentPixSignature() {
+  return JSON.stringify({
+    giftId: pixGiftId.value,
+    name: formatDisplayName(pixName.value),
+    whatsapp: digits(pixWhatsapp.value),
+    value: Number(pixValue.value).toFixed(2)
+  });
+}
+
+function invalidatePixGeneration({
+  keepMessage = true
+} = {}) {
+  pixPayloadGenerated = "";
+  pixGeneration = null;
+  pixGenerated.classList.add("hidden");
+  pixPayload.value = "";
+  pixSubmitButton.disabled = false;
+  pixSubmitButton.textContent = "Já fiz o PIX";
+
+  if (!keepMessage) {
+    hidePixMessage();
+  }
+}
+
+function pixRemainingValue(gift) {
+  if (!gift) return null;
+
+  return Math.max(
+    0,
+    Number(gift.valorEstimado || 0) -
+    Number(gift.pixConfirmedTotal || 0)
+  );
+}
+
 async function openPix(id) {
   selectedGift = id === "presente-dinheiro"
     ? null
     : gifts.find(gift => gift.id === id);
 
   pixForm.reset();
-  pixGenerated.classList.add("hidden");
-  pixMessage.classList.add("hidden");
+  invalidatePixGeneration({
+    keepMessage: false
+  });
+
+  generatePixButton.disabled = true;
+  generatePixButton.textContent =
+    "Carregando configuração PIX...";
+
   pixGiftId.value = id;
   pixTitle.textContent =
     selectedGift?.nome || "Presente em Dinheiro";
-  pixValue.value = selectedGift
-    ? Number(selectedGift.valorEstimado).toFixed(2)
-    : "";
 
-  try {
-    pixConfig = await getPixConfig();
+  if (selectedGift) {
+    const remaining = pixRemainingValue(selectedGift);
+    const estimated = Number(
+      selectedGift.valorEstimado || 0
+    );
 
-    if (!pixConfig?.active) {
-      throw new Error(
-        "O PIX ainda não foi configurado pelos noivos."
-      );
-    }
+    pixValue.value = (
+      remaining > 0
+        ? remaining
+        : estimated
+    ).toFixed(2);
 
-    generatePixButton.disabled = false;
-  } catch (error) {
-    pixConfig = null;
-    generatePixButton.disabled = true;
-    pixMessage.className = "notice warning";
-    pixMessage.textContent = error.message;
-    pixMessage.classList.remove("hidden");
+    pixGiftSummary.innerHTML = `
+      <strong>${escapeHtml(selectedGift.nome)}</strong>
+      <span>
+        Valor estimado: ${money(estimated)}
+      </span>
+      <small>
+        Já confirmado por PIX:
+        ${money(selectedGift.pixConfirmedTotal || 0)}
+        • Valor restante:
+        ${money(remaining)}
+      </small>
+    `;
+
+    pixValueHelp.textContent =
+      "Você pode contribuir com o valor restante, uma parte dele ou até um valor maior. O excedente será tratado como presente em dinheiro.";
+  } else {
+    pixValue.value = "";
+
+    pixGiftSummary.innerHTML = `
+      <strong>Presente em Dinheiro</strong>
+      <span>
+        Escolha livremente o valor que deseja enviar ao casal.
+      </span>
+      <small>
+        Esta contribuição não fica vinculada a um produto.
+      </small>
+    `;
+
+    pixValueHelp.textContent =
+      "Informe qualquer valor maior que zero.";
   }
 
   openModal(pixModal);
+
+  try {
+    const rawConfiguration = await getPixConfig();
+
+    if (!rawConfiguration?.active) {
+      throw new Error(
+        "O PIX ainda não está disponível. Os noivos precisam ativá-lo no painel."
+      );
+    }
+
+    pixConfig = normalizePixConfig(rawConfiguration);
+
+    generatePixButton.disabled = false;
+    generatePixButton.textContent =
+      "Gerar QR Code e PIX Copia e Cola";
+  } catch (error) {
+    pixConfig = null;
+    generatePixButton.disabled = true;
+    generatePixButton.textContent = "PIX indisponível";
+    showPixMessage(
+      error.message ||
+      "Não foi possível carregar a configuração do PIX.",
+      "warning"
+    );
+  }
 }
 
-generatePixButton.addEventListener("click", async () => {
-  try {
-    if (!pixConfig?.active) {
-      throw new Error("PIX indisponível.");
+[
+  pixName,
+  pixWhatsapp,
+  pixValue
+].forEach(element => {
+  element.addEventListener("input", () => {
+    if (pixGeneration) {
+      invalidatePixGeneration({
+        keepMessage: false
+      });
     }
+  });
+});
 
-    if (!hasNameAndSurname(pixName.value)) {
-      throw new Error("Informe seu nome e sobrenome.");
-    }
+pixWhatsapp.addEventListener("input", () => {
+  pixWhatsapp.value = maskPhone(pixWhatsapp.value);
+});
 
-    if (!isValidWhatsapp(pixWhatsapp.value)) {
-      throw new Error(
-        "Informe um WhatsApp válido no formato (69) 99999-9999."
-      );
-    }
+generatePixButton.addEventListener(
+  "click",
+  async () => {
+    const originalText = generatePixButton.textContent;
+    generatePixButton.disabled = true;
+    generatePixButton.textContent = "Gerando PIX...";
+    hidePixMessage();
 
-    const value = Number(pixValue.value);
-
-    if (!Number.isFinite(value) || value <= 0) {
-      throw new Error("Informe um valor válido.");
-    }
-
-    const txid =
-      `ME${Date.now().toString(36).toUpperCase()}`.slice(0, 25);
-
-    pixPayloadGenerated = buildPixPayload({
-      key: pixConfig.key,
-      name: pixConfig.holderName,
-      city: pixConfig.city,
-      amount: value,
-      description:
-        pixConfig.description || "PRESENTE",
-      txid
-    });
-
-    pixPayload.value = pixPayloadGenerated;
-    pixBeneficiary.textContent =
-      `${pixConfig.holderName} • ${money(value)}`;
-
-    if (!window.QRCode) {
-      throw new Error(
-        "A biblioteca do QR Code ainda está carregando. Tente novamente."
-      );
-    }
-
-    await window.QRCode.toCanvas(
-      pixQrCanvas,
-      pixPayloadGenerated,
-      {
-        width: 220,
-        margin: 1
+    try {
+      if (!pixConfig?.active) {
+        throw new Error("PIX indisponível.");
       }
+
+      if (!hasNameAndSurname(pixName.value)) {
+        throw new Error("Informe seu nome e sobrenome.");
+      }
+
+      if (!isValidWhatsapp(pixWhatsapp.value)) {
+        throw new Error(
+          "Informe um WhatsApp válido no formato (69) 99999-9999."
+        );
+      }
+
+      const value = Number(pixValue.value);
+
+      if (!Number.isFinite(value) || value <= 0) {
+        throw new Error("Informe um valor PIX válido.");
+      }
+
+      const contributionRef = doc(
+        collection(db, "pixInformados")
+      );
+
+      const txid = contributionRef.id
+        .replace(/[^a-zA-Z0-9]/g, "")
+        .toUpperCase()
+        .slice(0, 25);
+
+      pixPayloadGenerated = buildPixPayload({
+        key: pixConfig.key,
+        name: pixConfig.holderName,
+        city: pixConfig.city,
+        amount: value,
+        description:
+          pixConfig.description ||
+          "PRESENTE DE CASAMENTO",
+        txid
+      });
+
+      if (!validatePixPayload(pixPayloadGenerated)) {
+        throw new Error(
+          "Não foi possível validar o código PIX gerado."
+        );
+      }
+
+      renderQrToCanvas(
+        pixQrCanvas,
+        pixPayloadGenerated,
+        {
+          size: 240,
+          margin: 4,
+          level: "M"
+        }
+      );
+
+      pixPayload.value = pixPayloadGenerated;
+      pixBeneficiary.textContent =
+        `${pixConfig.holderName} • ${money(value)}`;
+
+      pixDestinationLabel.textContent =
+        selectedGift?.nome ||
+        "Presente em Dinheiro";
+
+      pixGeneration = {
+        id: contributionRef.id,
+        txid,
+        signature: currentPixSignature(),
+        value,
+        payload: pixPayloadGenerated
+      };
+
+      pixGenerated.classList.remove("hidden");
+      showPixMessage(
+        "PIX gerado. Faça o pagamento no banco e depois clique em “Já fiz o PIX”.",
+        "success"
+      );
+
+      pixGenerated.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest"
+      });
+    } catch (error) {
+      invalidatePixGeneration();
+      showPixMessage(
+        error.message ||
+        "Não foi possível gerar o PIX."
+      );
+    } finally {
+      generatePixButton.disabled = !pixConfig?.active;
+      generatePixButton.textContent = originalText;
+    }
+  }
+);
+
+copyPixButton.addEventListener(
+  "click",
+  async () => {
+    if (!pixPayloadGenerated) {
+      showPixMessage(
+        "Gere o PIX antes de copiar o código."
+      );
+      return;
+    }
+
+    try {
+      if (
+        navigator.clipboard &&
+        window.isSecureContext
+      ) {
+        await navigator.clipboard.writeText(
+          pixPayloadGenerated
+        );
+      } else {
+        pixPayload.focus();
+        pixPayload.select();
+
+        const copied = document.execCommand("copy");
+
+        if (!copied) {
+          throw new Error();
+        }
+      }
+
+      copyPixButton.textContent = "Código copiado";
+
+      window.setTimeout(() => {
+        copyPixButton.textContent = "Copiar código PIX";
+      }, 1800);
+    } catch {
+      pixPayload.focus();
+      pixPayload.select();
+
+      showPixMessage(
+        "Não foi possível copiar automaticamente. O código foi selecionado; use Ctrl+C.",
+        "warning"
+      );
+    }
+  }
+);
+
+pixForm.addEventListener(
+  "submit",
+  async event => {
+    event.preventDefault();
+
+    pixSubmitButton.disabled = true;
+    pixSubmitButton.textContent = "Registrando...";
+
+    try {
+      if (!pixGeneration || !pixPayloadGenerated) {
+        throw new Error(
+          "Gere o PIX antes de informar o pagamento."
+        );
+      }
+
+      if (
+        pixGeneration.signature !== currentPixSignature()
+      ) {
+        throw new Error(
+          "Os dados foram alterados depois da geração. Gere o PIX novamente."
+        );
+      }
+
+      const user = await ensureAnonymousAuth();
+
+      const value = Number(pixValue.value);
+      const isCash =
+        pixGiftId.value === "presente-dinheiro";
+
+      const pixProfile = await buildReservationProfile(
+        pixName.value,
+        pixWhatsapp.value
+      );
+
+      const pixData = {
+        profileId: pixProfile.profileId,
+
+        giftId: pixGiftId.value,
+        giftName:
+          selectedGift?.nome ||
+          "Presente em Dinheiro",
+        destinationType:
+          isCash ? "cash" : "gift",
+
+        guestName: pixProfile.displayName,
+        guestNameNormalized:
+          pixProfile.normalizedName,
+        whatsapp: pixProfile.whatsapp,
+
+        value,
+        ownerUid: user.uid,
+        status: "aguardando_confirmacao",
+
+        txid: pixGeneration.txid,
+        payload: pixGeneration.payload,
+        keyType: pixConfig.keyType,
+
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp()
+      };
+
+      const batch = writeBatch(db);
+
+      batch.set(
+        doc(
+          db,
+          "perfisPix",
+          pixProfile.profileId
+        ),
+        {
+          profileId: pixProfile.profileId,
+          displayName: pixProfile.displayName,
+          normalizedName: pixProfile.normalizedName,
+          whatsapp: pixProfile.whatsapp,
+          updatedAt: serverTimestamp(),
+          lastPixAt: serverTimestamp()
+        },
+        { merge: true }
+      );
+
+      batch.set(
+        doc(
+          db,
+          "perfisPix",
+          pixProfile.profileId,
+          "pix",
+          pixGeneration.id
+        ),
+        pixData
+      );
+
+      batch.set(
+        doc(
+          db,
+          "pixInformados",
+          pixGeneration.id
+        ),
+        pixData
+      );
+
+      await batch.commit();
+
+      localStorage.setItem(
+        "casamento.pix.ultimoAcesso",
+        JSON.stringify({
+          name: pixProfile.displayName,
+          whatsapp: pixProfile.whatsapp
+        })
+      );
+
+      pixSubmitButton.textContent = "PIX informado";
+      generatePixButton.disabled = true;
+
+      showPixMessage(
+        "PIX informado com sucesso. Os noivos confirmarão o recebimento pelo painel administrativo.",
+        "success"
+      );
+    } catch (error) {
+      const permissionDenied =
+        error?.code === "permission-denied" ||
+        /missing or insufficient permissions/i.test(
+          String(error?.message || "")
+        );
+
+      showPixMessage(
+        permissionDenied
+          ? "Não foi possível registrar o PIX. Publique as regras atualizadas do Firebase e tente novamente."
+          : (
+              error.message ||
+              "Não foi possível informar o PIX."
+            )
+      );
+
+      pixSubmitButton.disabled = false;
+      pixSubmitButton.textContent = "Já fiz o PIX";
+    }
+  }
+);
+function pixPublicStatusLabel(status) {
+  return ({
+    aguardando_confirmacao: "Aguardando confirmação",
+    confirmado: "Confirmado",
+    recusado: "Recusado"
+  })[status] || "Status desconhecido";
+}
+
+function pixPublicStatusClass(status) {
+  return status === "confirmado"
+    ? "confirmed"
+    : status === "recusado"
+      ? "rejected"
+      : "pending";
+}
+
+function pixPublicStatusNote(status) {
+  return ({
+    aguardando_confirmacao:
+      "Os noivos ainda precisam conferir o recebimento no banco.",
+    confirmado:
+      "O recebimento deste PIX já foi confirmado pelos noivos.",
+    recusado:
+      "Este PIX foi recusado. Confirme no aplicativo do banco se o pagamento foi concluído corretamente."
+  })[status] || "";
+}
+
+function showMyPixMessage(text, type = "") {
+  myPixMessage.className = `notice ${type}`.trim();
+  myPixMessage.textContent = text;
+  myPixMessage.classList.remove("hidden");
+}
+
+function hideMyPixMessage() {
+  myPixMessage.classList.add("hidden");
+  myPixMessage.textContent = "";
+}
+
+function openMyPix({
+  name = "",
+  whatsapp = "",
+  searchImmediately = false
+} = {}) {
+  myPixLookupForm.reset();
+  myPixName.value = name;
+  myPixWhatsapp.value = maskPhone(whatsapp);
+  myPixList.classList.add("hidden");
+  myPixList.innerHTML = "";
+  hideMyPixMessage();
+
+  openModal(myPixModal);
+
+  if (searchImmediately && name && whatsapp) {
+    searchPixByIdentity();
+  }
+}
+
+function renderMyPix(profile, entries) {
+  const confirmed = entries.filter(
+    item => item.data.status === "confirmado"
+  );
+
+  const pending = entries.filter(
+    item => item.data.status === "aguardando_confirmacao"
+  );
+
+  const totalConfirmed = confirmed.reduce(
+    (total, item) =>
+      total + Number(item.data.value || 0),
+    0
+  );
+
+  myPixList.classList.remove("hidden");
+  myPixList.innerHTML = `
+    <div class="notice success" style="margin-bottom:14px">
+      PIX encontrados para
+      <strong>${escapeHtml(profile.displayName)}</strong>.
+    </div>
+
+    <div class="pix-lookup-summary">
+      <article>
+        <span>Total informado</span>
+        <strong>${money(
+          entries.reduce(
+            (total, item) =>
+              total + Number(item.data.value || 0),
+            0
+          )
+        )}</strong>
+      </article>
+
+      <article>
+        <span>Total confirmado</span>
+        <strong>${money(totalConfirmed)}</strong>
+      </article>
+
+      <article>
+        <span>Aguardando</span>
+        <strong>${pending.length}</strong>
+      </article>
+    </div>
+
+    <div class="pix-lookup-list">
+      ${entries.map(item => {
+        const pix = item.data;
+        const createdAt = pix.createdAt?.toDate?.();
+        const status = pix.status ||
+          "aguardando_confirmacao";
+
+        return `
+          <article class="pix-lookup-item">
+            <div class="pix-lookup-item-header">
+              <h3>${escapeHtml(
+                pix.giftName || "Presente em Dinheiro"
+              )}</h3>
+
+              <span
+                class="pix-lookup-status ${pixPublicStatusClass(status)}"
+              >
+                ${escapeHtml(pixPublicStatusLabel(status))}
+              </span>
+            </div>
+
+            <div class="pix-lookup-details">
+              <div>
+                <span>Valor</span>
+                <strong>${money(pix.value)}</strong>
+              </div>
+
+              <div>
+                <span>Data informada</span>
+                <strong>
+                  ${
+                    createdAt
+                      ? createdAt.toLocaleString("pt-BR")
+                      : "—"
+                  }
+                </strong>
+              </div>
+
+              <div>
+                <span>Identificação</span>
+                <strong>${escapeHtml(pix.txid || "—")}</strong>
+              </div>
+            </div>
+
+            <p class="pix-lookup-note">
+              ${escapeHtml(pixPublicStatusNote(status))}
+            </p>
+          </article>
+        `;
+      }).join("")}
+    </div>
+  `;
+}
+
+async function searchPixByIdentity() {
+  hideMyPixMessage();
+  myPixList.classList.add("hidden");
+  myPixList.innerHTML = "";
+  searchMyPixButton.disabled = true;
+  searchMyPixButton.textContent = "Consultando...";
+
+  try {
+    const profile = await buildReservationProfile(
+      myPixName.value,
+      myPixWhatsapp.value
     );
 
-    pixGenerated.classList.remove("hidden");
-  } catch (error) {
-    pixMessage.className = "notice danger";
-    pixMessage.textContent = error.message;
-    pixMessage.classList.remove("hidden");
-  }
-});
-
-copyPixButton.addEventListener("click", async () => {
-  await navigator.clipboard.writeText(pixPayloadGenerated);
-  copyPixButton.textContent = "Código copiado";
-
-  setTimeout(() => {
-    copyPixButton.textContent = "Copiar código";
-  }, 1800);
-});
-
-pixForm.addEventListener("submit", async event => {
-  event.preventDefault();
-
-  try {
     const user = await ensureAnonymousAuth();
-    const value = Number(pixValue.value);
+    const entries = [];
 
-    if (!pixPayloadGenerated) {
-      throw new Error("Gere o PIX antes de confirmar.");
-    }
+    const profileRef = doc(
+      db,
+      "perfisPix",
+      profile.profileId
+    );
 
-    if (!hasNameAndSurname(pixName.value)) {
-      throw new Error("Informe seu nome e sobrenome.");
-    }
+    const profileSnapshot = await getDoc(profileRef);
 
-    if (!isValidWhatsapp(pixWhatsapp.value)) {
-      throw new Error(
-        "Informe um WhatsApp válido no formato (69) 99999-9999."
+    if (profileSnapshot.exists()) {
+      const savedProfile = profileSnapshot.data();
+
+      profile.displayName =
+        savedProfile.displayName || profile.displayName;
+
+      const profilePixSnapshot = await getDocs(
+        collection(
+          db,
+          "perfisPix",
+          profile.profileId,
+          "pix"
+        )
       );
+
+      profilePixSnapshot.docs.forEach(snapshot => {
+        entries.push({
+          id: snapshot.id,
+          data: snapshot.data(),
+          legacy: false
+        });
+      });
     }
 
-    const reference = doc(collection(db, "pixInformados"));
+    /*
+     * Compatibilidade com PIX informados antes desta atualização.
+     * Só encontra registros antigos no mesmo navegador, pelo UID anônimo.
+     */
+    const legacySnapshot = await getDocs(
+      query(
+        collection(db, "pixInformados"),
+        where("ownerUid", "==", user.uid)
+      )
+    );
 
-    await setDoc(reference, {
-      giftId: pixGiftId.value,
-      giftName:
-        selectedGift?.nome || "Presente em Dinheiro",
-      guestName: formatDisplayName(pixName.value),
-      guestNameNormalized: normalizeName(pixName.value),
-      whatsapp: digits(pixWhatsapp.value),
-      value,
-      ownerUid: user.uid,
-      status: "aguardando_confirmacao",
-      payload: pixPayloadGenerated,
-      createdAt: serverTimestamp(),
-      updatedAt: serverTimestamp()
+    legacySnapshot.docs.forEach(snapshot => {
+      const pix = snapshot.data();
+
+      const samePerson =
+        !pix.profileId &&
+        pix.whatsapp === profile.whatsapp &&
+        normalizeName(pix.guestName) ===
+          profile.normalizedName;
+
+      const alreadyIncluded = entries.some(
+        item => item.id === snapshot.id
+      );
+
+      if (samePerson && !alreadyIncluded) {
+        entries.push({
+          id: snapshot.id,
+          data: pix,
+          legacy: true
+        });
+      }
     });
 
-    pixMessage.className = "notice success";
-    pixMessage.textContent =
-      "PIX informado. O valor será contabilizado depois da conferência manual pelo administrador.";
-    pixMessage.classList.remove("hidden");
+    entries.sort(
+      (a, b) =>
+        timestampMillis(b.data.createdAt) -
+        timestampMillis(a.data.createdAt)
+    );
+
+    if (!entries.length) {
+      showMyPixMessage(
+        "Nenhum PIX foi encontrado com este nome e WhatsApp.",
+        "warning"
+      );
+      return;
+    }
+
+    localStorage.setItem(
+      "casamento.pix.ultimoAcesso",
+      JSON.stringify({
+        name: profile.displayName,
+        whatsapp: profile.whatsapp
+      })
+    );
+
+    renderMyPix(profile, entries);
   } catch (error) {
-    pixMessage.className = "notice danger";
-    pixMessage.textContent =
-      error.message || "Não foi possível informar o PIX.";
-    pixMessage.classList.remove("hidden");
+    console.error(error);
+
+    const permissionDenied =
+      error?.code === "permission-denied" ||
+      /missing or insufficient permissions/i.test(
+        String(error?.message || "")
+      );
+
+    showMyPixMessage(
+      permissionDenied
+        ? "Não foi possível consultar os PIX. Publique as regras atualizadas do Firebase."
+        : (
+            error.message ||
+            "Não foi possível consultar seus PIX."
+          ),
+      "danger"
+    );
+  } finally {
+    searchMyPixButton.disabled = false;
+    searchMyPixButton.textContent = "Consultar PIX";
   }
+}
+
+myPixButton.addEventListener("click", () => {
+  const savedLookup = JSON.parse(
+    localStorage.getItem(
+      "casamento.pix.ultimoAcesso"
+    ) || "null"
+  );
+
+  openMyPix({
+    name: savedLookup?.name || "",
+    whatsapp: savedLookup?.whatsapp || "",
+    searchImmediately: false
+  });
 });
 
+myPixLookupForm.addEventListener(
+  "submit",
+  async event => {
+    event.preventDefault();
+    await searchPixByIdentity();
+  }
+);
 function reservationStatus(reservation) {
   const expiration = reservation.expiresAt?.toDate?.();
 

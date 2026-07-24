@@ -1,0 +1,239 @@
+/*
+ * SISTEMA DE ÍCONES SVG — 2.8.0
+ * Paleta: marrom, terracota, bege, marfim e branco quente.
+ */
+
+.ui-icon {
+  --icon-size: 1.15em;
+  --icon-url: none;
+  display: inline-block;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  min-width: var(--icon-size);
+  flex: 0 0 var(--icon-size);
+  vertical-align: -0.14em;
+  color: inherit;
+  background-color: currentColor;
+  -webkit-mask-image: var(--icon-url);
+  mask-image: var(--icon-url);
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+.icon-add { --icon-url: url("../icons/icon-add.svg"); }
+.icon-arrow-left { --icon-url: url("../icons/icon-arrow-left.svg"); }
+.icon-arrow-right { --icon-url: url("../icons/icon-arrow-right.svg"); }
+.icon-background-remove { --icon-url: url("../icons/icon-background-remove.svg"); }
+.icon-bought { --icon-url: url("../icons/icon-bought.svg"); }
+.icon-calendar { --icon-url: url("../icons/icon-calendar.svg"); }
+.icon-cancel { --icon-url: url("../icons/icon-cancel.svg"); }
+.icon-check { --icon-url: url("../icons/icon-check.svg"); }
+.icon-chevron-down { --icon-url: url("../icons/icon-chevron-down.svg"); }
+.icon-child { --icon-url: url("../icons/icon-child.svg"); }
+.icon-clock { --icon-url: url("../icons/icon-clock.svg"); }
+.icon-close { --icon-url: url("../icons/icon-close.svg"); }
+.icon-copy { --icon-url: url("../icons/icon-copy.svg"); }
+.icon-delivery { --icon-url: url("../icons/icon-delivery.svg"); }
+.icon-error { --icon-url: url("../icons/icon-error.svg"); }
+.icon-family { --icon-url: url("../icons/icon-family.svg"); }
+.icon-filter { --icon-url: url("../icons/icon-filter.svg"); }
+.icon-gift { --icon-url: url("../icons/icon-gift.svg"); }
+.icon-home { --icon-url: url("../icons/icon-home.svg"); }
+.icon-image { --icon-url: url("../icons/icon-image.svg"); }
+.icon-link { --icon-url: url("../icons/icon-link.svg"); }
+.icon-loading-1 { --icon-url: url("../icons/icon-loading-1.svg"); }
+.icon-loading-2 { --icon-url: url("../icons/icon-loading-2.svg"); }
+.icon-loading-3 { --icon-url: url("../icons/icon-loading-3.svg"); }
+.icon-loading-4 { --icon-url: url("../icons/icon-loading-4.svg"); }
+.icon-loading-5 { --icon-url: url("../icons/icon-loading-5.svg"); }
+.icon-loading-6 { --icon-url: url("../icons/icon-loading-6.svg"); }
+.icon-loading-7 { --icon-url: url("../icons/icon-loading-7.svg"); }
+.icon-location { --icon-url: url("../icons/icon-location.svg"); }
+.icon-menu { --icon-url: url("../icons/icon-menu.svg"); }
+.icon-money { --icon-url: url("../icons/icon-money.svg"); }
+.icon-pix { --icon-url: url("../icons/icon-pix.svg"); }
+.icon-presence { --icon-url: url("../icons/icon-presence.svg"); }
+.icon-qrcode { --icon-url: url("../icons/icon-qrcode.svg"); }
+.icon-remove { --icon-url: url("../icons/icon-remove.svg"); }
+.icon-reservations { --icon-url: url("../icons/icon-reservations.svg"); }
+.icon-resize { --icon-url: url("../icons/icon-resize.svg"); }
+.icon-search { --icon-url: url("../icons/icon-search.svg"); }
+.icon-store { --icon-url: url("../icons/icon-store.svg"); }
+.icon-upload { --icon-url: url("../icons/icon-upload.svg"); }
+.icon-user { --icon-url: url("../icons/icon-user.svg"); }
+.icon-warning { --icon-url: url("../icons/icon-warning.svg"); }
+.icon-whatsapp { --icon-url: url("../icons/icon-whatsapp.svg"); }
+
+.loading-icon-sequence {
+  --icon-size: 36px;
+  display: inline-block;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  min-width: var(--icon-size);
+  flex: 0 0 var(--icon-size);
+  color: var(--primary);
+  background-color: currentColor;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  animation: wedding-icon-loading .84s steps(1, end) infinite;
+}
+
+
+@keyframes wedding-icon-loading {
+  0%, 13.9% {
+    -webkit-mask-image: url("../icons/icon-loading-1.svg");
+    mask-image: url("../icons/icon-loading-1.svg");
+  }
+  14%, 27.9% {
+    -webkit-mask-image: url("../icons/icon-loading-2.svg");
+    mask-image: url("../icons/icon-loading-2.svg");
+  }
+  28%, 41.9% {
+    -webkit-mask-image: url("../icons/icon-loading-3.svg");
+    mask-image: url("../icons/icon-loading-3.svg");
+  }
+  42%, 56.9% {
+    -webkit-mask-image: url("../icons/icon-loading-4.svg");
+    mask-image: url("../icons/icon-loading-4.svg");
+  }
+  57%, 70.9% {
+    -webkit-mask-image: url("../icons/icon-loading-5.svg");
+    mask-image: url("../icons/icon-loading-5.svg");
+  }
+  71%, 84.9% {
+    -webkit-mask-image: url("../icons/icon-loading-6.svg");
+    mask-image: url("../icons/icon-loading-6.svg");
+  }
+  85%, 99.9% {
+    -webkit-mask-image: url("../icons/icon-loading-7.svg");
+    mask-image: url("../icons/icon-loading-7.svg");
+  }
+  100% {
+    -webkit-mask-image: url("../icons/icon-loading-1.svg");
+    mask-image: url("../icons/icon-loading-1.svg");
+  }
+}
+
+
+.site-nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.site-nav a .ui-icon {
+  --icon-size: 18px;
+  color: var(--primary);
+}
+
+.menu-toggle .ui-icon,
+.modal-close .ui-icon {
+  --icon-size: 21px;
+  color: var(--dark);
+}
+
+.event-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.event-pill .ui-icon {
+  --icon-size: 18px;
+  color: var(--terracotta);
+}
+
+.btn-primary .ui-icon,
+.btn-danger .ui-icon {
+  color: var(--warm-white);
+}
+
+.btn-secondary .ui-icon {
+  color: var(--primary);
+}
+
+.btn-ghost .ui-icon {
+  color: currentColor;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.loading .loading-icon-sequence {
+  --icon-size: 34px;
+}
+
+.gift-placeholder,
+.broken-image-placeholder {
+  display: grid;
+  place-items: center;
+}
+
+.gift-placeholder .ui-icon,
+.broken-image-placeholder .ui-icon {
+  --icon-size: 58px;
+  color: var(--primary);
+}
+
+.money-icon .ui-icon {
+  --icon-size: 38px;
+  color: var(--warm-white);
+}
+
+.badge {
+  gap: 5px;
+}
+
+.badge .ui-icon,
+.pix-lookup-status .ui-icon {
+  --icon-size: 13px;
+}
+
+.pix-lookup-status {
+  gap: 5px;
+}
+
+.notice > .notice-icon {
+  --icon-size: 18px;
+  margin-right: 7px;
+}
+
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+
+.icon-button .ui-icon {
+  --icon-size: 20px;
+}
+
+.toolbar-extra .btn .ui-icon {
+  --icon-size: 18px;
+}
+
+.summary-item .summary-icon {
+  --icon-size: 23px;
+  display: block;
+  margin: 0 auto 8px;
+  color: var(--warm-white);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-icon-sequence {
+    animation-duration: 1.8s;
+  }
+}

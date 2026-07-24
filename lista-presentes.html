@@ -9,6 +9,12 @@
 
 <!DOCTYPE html>
 
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8"/>
@@ -17,8 +23,7 @@
 <link href="assets/img/monograma.svg" rel="icon" type="image/svg+xml"/>
 <link href="assets/css/public-site.css?v=261" rel="stylesheet"/>
 <script defer="" src="assets/js/public-menu.js?v=260"></script>
-<script defer="" src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
-<script defer="" src="assets/js/mobile-gifts-2.6.1.js?v=261"></script><link href="assets/css/product-images.css?v=2.6.8" rel="stylesheet"/></head>
+<script defer="" src="assets/js/mobile-gifts-2.6.1.js?v=261"></script><link href="assets/css/product-images.css?v=2.6.8" rel="stylesheet"/><link href="assets/css/pix-flow.css?v=2.7.3" rel="stylesheet"/><link href="assets/css/icon-system.css?v=2.8.0" rel="stylesheet"/><script defer="" src="assets/js/icon-system.js?v=2.8.0"></script></head>
 <body data-page="gifts">
 <header class="site-header">
 <div class="header-inner">
@@ -26,9 +31,9 @@
 <img alt="Monograma de Mislaine e Emerson" src="assets/img/monograma.svg"/>
 <span data-site-name="">Mislaine &amp; Emerson</span>
 </a>
-<button aria-expanded="false" aria-label="Abrir menu" class="menu-toggle" data-menu-toggle="" type="button">☰</button>
+<button aria-expanded="false" aria-label="Abrir menu" class="menu-toggle" data-menu-toggle="" type="button"><span aria-hidden="true" class="ui-icon icon-menu"></span></button>
 <nav class="site-nav" data-site-nav="">
-<a href="index.html">Início</a><a href="confirmar-presenca.html">Confirmar presença</a><a aria-current="page" href="lista-presentes.html">Lista de presentes</a>
+<a href="index.html"><span aria-hidden="true" class="ui-icon icon-home"></span>Início</a><a href="confirmar-presenca.html"><span aria-hidden="true" class="ui-icon icon-presence"></span>Confirmar presença</a><a aria-current="page" href="lista-presentes.html"><span aria-hidden="true" class="ui-icon icon-gift"></span>Lista de presentes</a>
 </nav>
 </div>
 </header>
@@ -36,15 +41,120 @@
 <section class="page-hero"><div class="container"><p class="eyebrow">Escolha com carinho</p><h1>Lista de presentes</h1><p>Reserve um presente por 24 horas para comprar na loja ou contribua por PIX. Os pagamentos PIX são confirmados manualmente pelos administradores.</p></div></section>
 <section class="section"><div class="gifts-container"><div class="hidden" data-global-message=""></div>
 <div class="toolbar"><input id="giftSearch" placeholder="Pesquisar presente..." type="search"/><select id="categoryFilter"><option value="">Todas as categorias</option></select><select id="priceFilter"><option value="">Todos os valores</option><option value="0-100">Até R$ 100</option><option value="100-300">R$ 100 a R$ 300</option><option value="300-500">R$ 300 a R$ 500</option><option value="500+">Acima de R$ 500</option></select></div>
-<div class="toolbar-extra"><button class="btn btn-secondary" id="myReservationsButton" type="button">Consultar minhas reservas</button></div>
-<div class="gift-grid" id="giftGrid"><div class="loading">Carregando presentes...</div></div>
+<div class="toolbar-extra"><button class="btn btn-secondary" id="myReservationsButton" type="button"><span aria-hidden="true" class="ui-icon icon-reservations"></span>Consultar minhas reservas</button><button class="btn btn-secondary" id="myPixButton" type="button"><span aria-hidden="true" class="ui-icon icon-pix"></span>
+      Consultar meus PIX
+    </button></div>
+<div class="gift-grid" id="giftGrid"><div class="loading"><span aria-hidden="true" class="ui-icon icon-loading-1 loading-icon-sequence"></span>Carregando presentes...</div></div>
 </div></section>
 </main>
 <footer class="site-footer"><div class="container">Com carinho, <span data-site-name="">Mislaine &amp; Emerson</span></div></footer>
-<dialog aria-labelledby="reservationTitle" class="site-dialog" id="reservationModal"><div class="modal-card"><div class="modal-header"><div><p class="eyebrow">Reservar presente</p><h2 id="reservationTitle">Presente</h2></div><button aria-label="Fechar" class="modal-close" data-close-modal="" type="button">✕</button></div><form id="reservationForm"><input id="reservationGiftId" type="hidden"/><div class="form-grid"><div class="field"><label for="reservationName">Nome e sobrenome</label><input autocomplete="name" id="reservationName" maxlength="120" minlength="5" placeholder="Ex.: João da Silva" required=""/><small>Informe obrigatoriamente nome e sobrenome.</small></div><div class="field"><label for="reservationWhatsapp">WhatsApp</label><input autocomplete="tel" id="reservationWhatsapp" inputmode="numeric" maxlength="15" pattern="\([1-9]\d\) 9\d{4}-\d{4}" placeholder="(69) 99999-9999" required="" type="tel"/></div><div class="field full notice hidden" id="reservationProfileNotice"></div><div class="field full"><label for="deliveryChoice">Forma de entrega</label><select id="deliveryChoice"><option value="casal">Entregar diretamente no endereço do casal</option><option value="convidado">Receber no meu endereço e entregar pessoalmente</option></select></div><div class="field full notice" id="deliveryAddressBox"><strong>Endereço de entrega</strong><span id="deliveryAddressText">Carregando endereço...</span></div></div><div class="notice hidden" id="reservationMessage" style="margin-top:16px"></div><div class="actions"><button class="btn btn-primary" id="reservationSubmitButton" type="submit">Reservar por 24 horas</button></div></form></div></dialog>
-<dialog aria-labelledby="pixTitle" class="site-dialog site-dialog-large" id="pixModal"><div class="modal-card"><div class="modal-header"><div><p class="eyebrow">Presentear por PIX</p><h2 id="pixTitle">Presente</h2></div><button aria-label="Fechar" class="modal-close" data-close-modal="" type="button">✕</button></div><form id="pixForm"><input id="pixGiftId" type="hidden"/><div class="form-grid"><div class="field"><label for="pixName">Nome e sobrenome</label><input autocomplete="name" id="pixName" maxlength="120" minlength="5" placeholder="Ex.: João da Silva" required=""/></div><div class="field"><label for="pixWhatsapp">WhatsApp</label><input autocomplete="tel" id="pixWhatsapp" inputmode="numeric" maxlength="15" pattern="\([1-9]\d\) 9\d{4}-\d{4}" placeholder="(69) 99999-9999" required="" type="tel"/></div><div class="field full"><label for="pixValue">Valor</label><input id="pixValue" min=".01" required="" step=".01" type="number"/><small>O valor pode ser maior que o valor restante do produto.</small></div></div><div class="actions"><button class="btn btn-primary" id="generatePixButton" type="button">Gerar PIX</button></div><div class="hidden" id="pixGenerated"><div class="pix-box"><canvas id="pixQrCanvas"></canvas><div><p><strong id="pixBeneficiary"></strong></p><div class="field"><label for="pixPayload">PIX Copia e Cola</label><textarea id="pixPayload" readonly=""></textarea></div><div class="actions"><button class="btn btn-secondary" id="copyPixButton" type="button">Copiar código</button><button class="btn btn-primary" type="submit">Já fiz o PIX</button></div></div></div></div><div class="notice hidden" id="pixMessage" style="margin-top:16px"></div></form></div></dialog>
-<dialog class="site-dialog site-dialog-large" id="myReservationsModal"><div class="modal-card"><div class="modal-header"><div><p class="eyebrow">Acompanhe suas escolhas</p><h2>Minhas reservas</h2></div><button aria-label="Fechar" class="modal-close" data-close-modal="" type="button">✕</button></div><form id="myReservationsLookupForm"><div class="form-grid"><div class="field"><label for="myReservationsName">Nome e sobrenome</label><input autocomplete="name" id="myReservationsName" maxlength="120" minlength="5" placeholder="Ex.: João da Silva" required="" type="text"/><small>Digite o mesmo nome usado na reserva. Acentos e letras maiúsculas não fazem diferença.</small></div><div class="field"><label for="myReservationsWhatsapp">WhatsApp</label><input autocomplete="tel" id="myReservationsWhatsapp" inputmode="numeric" maxlength="15" pattern="\([1-9]\d\) 9\d{4}-\d{4}" placeholder="(69) 99999-9999" required="" type="tel"/></div></div><div class="actions"><button class="btn btn-primary" id="searchMyReservationsButton" type="submit">Consultar reservas</button></div></form><div class="notice hidden" id="myReservationsMessage" style="margin-top:16px"></div><div class="hidden" id="myReservationsList" style="margin-top:16px"></div></div></dialog>
+<dialog aria-labelledby="reservationTitle" class="site-dialog" id="reservationModal"><div class="modal-card"><div class="modal-header"><div><p class="eyebrow">Reservar presente</p><h2 id="reservationTitle">Presente</h2></div><button aria-label="Fechar" class="modal-close" data-close-modal="" type="button"><span aria-hidden="true" class="ui-icon icon-close"></span></button></div><form id="reservationForm"><input id="reservationGiftId" type="hidden"/><div class="form-grid"><div class="field"><label for="reservationName">Nome e sobrenome</label><input autocomplete="name" id="reservationName" maxlength="120" minlength="5" placeholder="Ex.: João da Silva" required=""/><small>Informe obrigatoriamente nome e sobrenome.</small></div><div class="field"><label for="reservationWhatsapp">WhatsApp</label><input autocomplete="tel" id="reservationWhatsapp" inputmode="numeric" maxlength="15" pattern="\([1-9]\d\) 9\d{4}-\d{4}" placeholder="(69) 99999-9999" required="" type="tel"/></div><div class="field full notice hidden" id="reservationProfileNotice"></div><div class="field full"><label for="deliveryChoice">Forma de entrega</label><select id="deliveryChoice"><option value="casal">Entregar diretamente no endereço do casal</option><option value="convidado">Receber no meu endereço e entregar pessoalmente</option></select></div><div class="field full notice" id="deliveryAddressBox"><strong>Endereço de entrega</strong><span id="deliveryAddressText">Carregando endereço...</span></div></div><div class="notice hidden" id="reservationMessage" style="margin-top:16px"></div><div class="actions"><button class="btn btn-primary" id="reservationSubmitButton" type="submit"><span aria-hidden="true" class="ui-icon icon-clock"></span>Reservar por 24 horas</button></div></form></div></dialog>
+<dialog aria-labelledby="pixTitle" class="site-dialog site-dialog-large" id="pixModal">
+<div class="modal-card">
+<div class="modal-header">
+<div>
+<p class="eyebrow">Presentear por PIX</p>
+<h2 id="pixTitle">Presente</h2>
+</div>
+<button aria-label="Fechar" class="modal-close" data-close-modal="" type="button"><span aria-hidden="true" class="ui-icon icon-close"></span></button>
+</div>
+<form id="pixForm">
+<input id="pixGiftId" type="hidden"/>
+<div class="pix-gift-summary" id="pixGiftSummary">
+        Carregando informações do presente...
+      </div>
+<div class="form-grid">
+<div class="field">
+<label for="pixName">Nome e sobrenome</label>
+<input autocomplete="name" id="pixName" maxlength="120" minlength="5" placeholder="Ex.: João da Silva" required=""/>
+</div>
+<div class="field">
+<label for="pixWhatsapp">WhatsApp</label>
+<input autocomplete="tel" id="pixWhatsapp" inputmode="numeric" maxlength="15" pattern="\([1-9]\d\) 9\d{4}-\d{4}" placeholder="(69) 99999-9999" required="" type="tel"/>
+</div>
+<div class="field full">
+<label for="pixValue">Valor do presente</label>
+<input id="pixValue" min=".01" required="" step=".01" type="number"/>
+<small id="pixValueHelp">
+            Você pode contribuir com qualquer valor.
+          </small>
+</div>
+</div>
+<div class="actions">
+<button class="btn btn-primary" id="generatePixButton" type="button"><span aria-hidden="true" class="ui-icon icon-qrcode"></span>
+          Gerar QR Code e PIX Copia e Cola
+        </button>
+</div>
+<div class="hidden" id="pixGenerated">
+<div class="pix-payment-box">
+<div class="pix-qr-column">
+<canvas id="pixQrCanvas"></canvas>
+<small>Abra o aplicativo do banco e leia o QR Code.</small>
+</div>
+<div class="pix-code-column">
+<div class="pix-beneficiary-card">
+<span>Recebedor</span>
+<strong id="pixBeneficiary"></strong>
+<small id="pixDestinationLabel"></small>
+</div>
+<div class="field">
+<label for="pixPayload">PIX Copia e Cola</label>
+<textarea id="pixPayload" readonly="" rows="5"></textarea>
+</div>
+<div class="actions pix-generated-actions">
+<button class="btn btn-secondary" id="copyPixButton" type="button"><span aria-hidden="true" class="ui-icon icon-copy"></span>
+                Copiar código PIX
+              </button>
+<button class="btn btn-primary" id="pixSubmitButton" type="submit"><span aria-hidden="true" class="ui-icon icon-check"></span>
+                Já fiz o PIX
+              </button>
+</div>
+</div>
+</div>
+<div class="notice warning pix-confirmation-note">
+          O valor só será contabilizado depois que os noivos
+          confirmarem o recebimento no banco.
+        </div>
+</div>
+<div class="notice hidden" id="pixMessage" style="margin-top:16px"></div>
+</form>
+</div>
+</dialog>
+<dialog class="site-dialog site-dialog-large" id="myReservationsModal"><div class="modal-card"><div class="modal-header"><div><p class="eyebrow">Acompanhe suas escolhas</p><h2>Minhas reservas</h2></div><button aria-label="Fechar" class="modal-close" data-close-modal="" type="button"><span aria-hidden="true" class="ui-icon icon-close"></span></button></div><form id="myReservationsLookupForm"><div class="form-grid"><div class="field"><label for="myReservationsName">Nome e sobrenome</label><input autocomplete="name" id="myReservationsName" maxlength="120" minlength="5" placeholder="Ex.: João da Silva" required="" type="text"/><small>Digite o mesmo nome usado na reserva. Acentos e letras maiúsculas não fazem diferença.</small></div><div class="field"><label for="myReservationsWhatsapp">WhatsApp</label><input autocomplete="tel" id="myReservationsWhatsapp" inputmode="numeric" maxlength="15" pattern="\([1-9]\d\) 9\d{4}-\d{4}" placeholder="(69) 99999-9999" required="" type="tel"/></div></div><div class="actions"><button class="btn btn-primary" id="searchMyReservationsButton" type="submit"><span aria-hidden="true" class="ui-icon icon-search"></span>Consultar reservas</button></div></form><div class="notice hidden" id="myReservationsMessage" style="margin-top:16px"></div><div class="hidden" id="myReservationsList" style="margin-top:16px"></div></div></dialog><dialog aria-labelledby="myPixModalTitle" class="site-dialog site-dialog-large" id="myPixModal">
+<div class="modal-card">
+<div class="modal-header">
+<div>
+<p class="eyebrow">Acompanhe seus pagamentos</p>
+<h2 id="myPixModalTitle">Meus PIX</h2>
+</div>
+<button aria-label="Fechar" class="modal-close" data-close-modal="" type="button"><span aria-hidden="true" class="ui-icon icon-close"></span></button>
+</div>
+<form id="myPixLookupForm">
+<div class="form-grid">
+<div class="field">
+<label for="myPixName">Nome e sobrenome</label>
+<input autocomplete="name" id="myPixName" maxlength="120" minlength="5" placeholder="Ex.: João da Silva" required="" type="text"/>
+<small>
+            Digite o mesmo nome usado ao informar o PIX.
+            Acentos e letras maiúsculas não fazem diferença.
+          </small>
+</div>
+<div class="field">
+<label for="myPixWhatsapp">WhatsApp</label>
+<input autocomplete="tel" id="myPixWhatsapp" inputmode="numeric" maxlength="15" pattern="\([1-9]\d\) 9\d{4}-\d{4}" placeholder="(69) 99999-9999" required="" type="tel"/>
+</div>
+</div>
+<div class="actions">
+<button class="btn btn-primary" id="searchMyPixButton" type="submit"><span aria-hidden="true" class="ui-icon icon-search"></span>
+          Consultar PIX
+        </button>
+</div>
+</form>
+<div class="notice hidden" id="myPixMessage" style="margin-top:16px"></div>
+<div class="hidden" id="myPixList" style="margin-top:16px"></div>
+</div>
+</dialog>
 <script src="assets/js/common.js?v=260" type="module"></script>
-<script src="assets/js/presentes.js?v=2.7.0" type="module"></script>
+<script src="assets/js/presentes.js?v=2.8.0" type="module"></script>
 </body>
 </html>

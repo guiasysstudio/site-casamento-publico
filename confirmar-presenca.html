@@ -1,49 +1,57 @@
 <!doctype html>
 <!DOCTYPE html>
 
-<!DOCTYPE html>
-
-<!DOCTYPE html>
-
-<html lang="pt-BR"><head><script id="early-device-detection">
-(function () {
-  var viewport = Math.min(
-    window.innerWidth || 9999,
-    document.documentElement.clientWidth || 9999,
-    window.visualViewport ? window.visualViewport.width : 9999
-  );
-
-  var device = "desktop";
-
-  if (viewport <= 700) {
-    device = "mobile";
-  } else if (viewport <= 1100) {
-    device = "tablet";
-  }
-
-  document.documentElement.dataset.device = device;
-})();
-</script><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" name="viewport"/>
-<title>Confirmar presença — Mislaine &amp; Emerson</title><link href="assets/img/monograma.svg" rel="icon" type="image/svg+xml"/><link href="assets/css/styles.css?v=2.5.0" rel="stylesheet"/><link href="assets/css/responsive.css?v=2.5.3" rel="stylesheet"/><link href="assets/css/public-menu-fix.css?v=2.5.3" rel="stylesheet"/><script defer="" src="assets/js/public-menu.js?v=2.5.3"></script></head>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<title>Confirmar presença — Mislaine &amp; Emerson</title>
+<link href="assets/img/monograma.svg" rel="icon" type="image/svg+xml"/>
+<link href="assets/css/public-site.css?v=260" rel="stylesheet"/>
+<script defer="" src="assets/js/public-menu.js?v=260"></script>
+<link href="assets/css/icon-system.css?v=2.8.0" rel="stylesheet"/><script defer="" src="assets/js/icon-system.js?v=2.8.0"></script></head>
 <body data-page="confirmation">
-<header class="site-header"><div class="header-inner"><a class="brand" href="index.html"><img alt="" src="assets/img/monograma.svg"/><span data-site-name="">Mislaine &amp; Emerson</span></a><button aria-expanded="false" aria-label="Abrir menu" class="menu-toggle" data-menu-toggle="" type="button">☰</button><nav class="site-nav" data-site-nav=""><a href="index.html">Início</a><a aria-current="page" href="confirmar-presenca.html">Confirmar presença</a><a href="lista-presentes.html">Lista de presentes</a></nav></div></header>
-<main><section class="page-hero"><div class="container"><p class="eyebrow">Esperamos por você</p><h1>Confirmação de presença</h1><p>Informe os dados da família. Filhos com até 12 anos são contabilizados como crianças; acima de 12 anos, como adultos.</p></div></section>
+<header class="site-header">
+<div class="header-inner">
+<a class="brand" href="index.html">
+<img alt="Monograma de Mislaine e Emerson" src="assets/img/monograma.svg"/>
+<span data-site-name="">Mislaine &amp; Emerson</span>
+</a>
+<button aria-expanded="false" aria-label="Abrir menu" class="menu-toggle" data-menu-toggle="" type="button"><span aria-hidden="true" class="ui-icon icon-menu"></span></button>
+<nav class="site-nav" data-site-nav="">
+<a href="index.html"><span aria-hidden="true" class="ui-icon icon-home"></span>Início</a><a aria-current="page" href="confirmar-presenca.html"><span aria-hidden="true" class="ui-icon icon-presence"></span>Confirmar presença</a><a href="lista-presentes.html"><span aria-hidden="true" class="ui-icon icon-gift"></span>Lista de presentes</a>
+</nav>
+</div>
+</header>
+<main>
+<section class="page-hero"><div class="container"><p class="eyebrow">Esperamos por você</p><h1>Confirmação de presença</h1><p>Informe os dados da família. Filhos com até 12 anos são contabilizados como crianças; acima de 12 anos, como adultos.</p></div></section>
 <section class="section"><div class="container"><div class="hidden" data-global-message=""></div><div class="card panel">
 <div class="notice warning hidden" id="deadlineNotice"></div>
-<div class="tabs"><button class="tab-button active" data-tab="new" type="button">Nova confirmação</button><button class="tab-button" data-tab="lookup" type="button">Consultar confirmação</button></div>
-<section data-tab-panel="new"><form id="confirmationForm"><input id="confirmationDocId" type="hidden"/>
-<div class="form-grid"><div class="field"><label for="responsibleName">Nome completo</label><input autocomplete="name" id="responsibleName" maxlength="120" required=""/></div>
-<div class="field"><label for="whatsapp">WhatsApp</label><input autocomplete="tel" id="whatsapp" inputmode="tel" maxlength="16" placeholder="(69) 99999-9999" required=""/></div>
-<div class="field full"><label class="checkbox-row"><input id="hasSpouse" type="checkbox"/>Vou levar cônjuge ou acompanhante adulto</label></div>
+<div class="tabs"><button class="tab-button active" data-tab="new" type="button"><span aria-hidden="true" class="ui-icon icon-add"></span>Nova confirmação</button><button class="tab-button" data-tab="lookup" type="button"><span aria-hidden="true" class="ui-icon icon-search"></span>Consultar confirmação</button></div>
+<section data-tab-panel="new">
+<form id="confirmationForm"><input id="confirmationDocId" type="hidden"/>
+<div class="form-grid">
+<div class="field"><label for="responsibleName">Nome completo</label><input autocomplete="name" id="responsibleName" maxlength="120" required=""/></div>
+<div class="field"><label for="whatsapp">WhatsApp</label><input autocomplete="tel" id="whatsapp" inputmode="numeric" maxlength="15" placeholder="(69) 99999-9999" required="" type="tel"/></div>
+<div class="field full"><label class="checkbox-row"><input id="hasSpouse" type="checkbox"/> Vou levar cônjuge ou acompanhante adulto</label></div>
 <div class="field full hidden" id="spouseField"><label for="spouseName">Nome do cônjuge ou acompanhante</label><input id="spouseName" maxlength="120"/></div>
 <div class="field full"><span class="field-label">Filhos</span><p style="margin:0;color:var(--muted)">Adicione quantos filhos forem necessários e informe o nome e a idade.</p></div>
-<div class="field full"><div class="children-list" id="childrenList"></div><button class="btn btn-secondary" id="addChildButton" type="button">+ Adicionar filho</button></div>
-<div class="field full"><div class="summary-box"><div class="summary-item"><strong id="adultCount">1</strong><span>Adultos</span></div><div class="summary-item"><strong id="childCount">0</strong><span>Crianças</span></div><div class="summary-item"><strong id="totalCount">1</strong><span>Total</span></div></div></div></div>
-<div class="notice hidden" id="formMessage" style="margin-top:18px"></div><div class="actions"><button class="btn btn-primary" id="submitConfirmation" type="submit">Confirmar presença</button><button class="btn btn-ghost hidden" id="cancelEditButton" type="button">Cancelar edição</button></div>
-</form></section>
-<section class="hidden" data-tab-panel="lookup"><form id="lookupForm"><div class="form-grid"><div class="field"><label for="lookupName">Nome do responsável</label><input id="lookupName" maxlength="120" required=""/></div><div class="field"><label for="lookupWhatsapp">WhatsApp</label><input id="lookupWhatsapp" inputmode="tel" maxlength="16" placeholder="(69) 99999-9999" required=""/></div></div><div class="actions"><button class="btn btn-primary" type="submit">Consultar confirmação</button></div></form><div class="hidden" id="lookupResult" style="margin-top:24px"></div></section>
-</div></div></section></main>
+<div class="field full"><div class="children-list" id="childrenList"></div><button class="btn btn-secondary" id="addChildButton" type="button"><span aria-hidden="true" class="ui-icon icon-add"></span>+ Adicionar filho</button></div>
+<div class="field full"><div class="summary-box"><div class="summary-item"><span aria-hidden="true" class="ui-icon icon-user summary-icon"></span><strong id="adultCount">1</strong><span>Adultos</span></div><div class="summary-item"><span aria-hidden="true" class="ui-icon icon-child summary-icon"></span><strong id="childCount">0</strong><span>Crianças</span></div><div class="summary-item"><span aria-hidden="true" class="ui-icon icon-family summary-icon"></span><strong id="totalCount">1</strong><span>Total</span></div></div></div>
+</div>
+<div class="notice hidden" id="formMessage" style="margin-top:16px"></div>
+<div class="actions"><button class="btn btn-primary" id="submitConfirmation" type="submit"><span aria-hidden="true" class="ui-icon icon-check"></span>Confirmar presença</button><button class="btn btn-ghost hidden" id="cancelEditButton" type="button"><span aria-hidden="true" class="ui-icon icon-cancel"></span>Cancelar edição</button></div>
+</form>
+</section>
+<section class="hidden" data-tab-panel="lookup">
+<form id="lookupForm"><div class="form-grid"><div class="field"><label for="lookupName">Nome do responsável</label><input id="lookupName" maxlength="120" required=""/></div><div class="field"><label for="lookupWhatsapp">WhatsApp</label><input id="lookupWhatsapp" inputmode="numeric" maxlength="15" placeholder="(69) 99999-9999" required="" type="tel"/></div></div><div class="actions"><button class="btn btn-primary" type="submit"><span aria-hidden="true" class="ui-icon icon-search"></span>Consultar confirmação</button></div></form>
+<div class="hidden" id="lookupResult" style="margin-top:22px"></div>
+</section>
+</div></div></section>
+</main>
 <footer class="site-footer"><div class="container">Casamento de <span data-site-name="">Mislaine &amp; Emerson</span></div></footer>
-<template id="childTemplate"><div class="child-row" data-child-row=""><div class="field"><label>Nome do filho</label><input data-child-name="" maxlength="120" required=""/></div><div class="field"><label>Idade</label><input data-child-age="" max="99" min="0" required="" type="number"/></div><button class="icon-button" data-remove-child="" type="button">Remover</button></div></template>
-<script src="assets/js/common.js?v=2.5.3" type="module"></script><script src="assets/js/confirmacao.js?v=2.5.0" type="module"></script>
-</body></html>
+<template id="childTemplate"><div class="child-row" data-child-row=""><div class="field"><label>Nome do filho</label><input data-child-name="" maxlength="120" required=""/></div><div class="field"><label>Idade</label><input data-child-age="" max="99" min="0" required="" type="number"/></div><button class="icon-button" data-remove-child="" type="button"><span aria-hidden="true" class="ui-icon icon-remove"></span>Remover</button></div></template>
+<script src="assets/js/common.js?v=260" type="module"></script>
+<script src="assets/js/confirmacao.js?v=260" type="module"></script>
+</body>
+</html>
